@@ -1,0 +1,6 @@
+/home/hsmak/dev/git/java-sandbox/data-structures/src/test/java/org/hsmak/abstractions/expression/postfix/abstraction/ArithExprTreeTest.java
+/home/hsmak/dev/git/java-sandbox/data-structures/src/test/java/org/hsmak/abstractions/expression/builder/ExprBuilderTest.java
+/home/hsmak/dev/git/java-sandbox/data-structures/src/test/java/org/hsmak/abstractions/expression/postfix/abstraction/BoolExprTreeWithANDPrecedenceTest.java
+/home/hsmak/dev/git/java-sandbox/data-structures/src/test/java/org/hsmak/abstractions/expression/postfix/abstraction/BoolExprTreeTest.java
+/home/hsmak/dev/git/java-sandbox/data-structures/src/test/java/org/hsmak/abstractions/expression/builder/ArithExprBuilderTest.java
+/home/hsmak/dev/git/java-sandbox/data-structures/src/test/java/org/hsmak/abstractions/expression/builder/BoolExprBuilderTest.java

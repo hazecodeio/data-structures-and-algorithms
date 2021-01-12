@@ -1,0 +1,6 @@
+org/hsmak/abstractions/expression/builder/ArithExprBuilderTest.class
+org/hsmak/abstractions/expression/postfix/abstraction/BoolExprTreeWithANDPrecedenceTest.class
+org/hsmak/abstractions/expression/builder/ExprBuilderTest.class
+org/hsmak/abstractions/expression/builder/BoolExprBuilderTest.class
+org/hsmak/abstractions/expression/postfix/abstraction/BoolExprTreeTest.class
+org/hsmak/abstractions/expression/postfix/abstraction/ArithExprTreeTest.class
