@@ -52,7 +52,7 @@ public class CaesarCipher {
     char[] msg = original.toCharArray();
     for (int k=0; k < msg.length; k++)
       if (Character.isUpperCase(msg[k])) {            // we have a letter to change
-        int j = msg[k] - 'A';                         // will be value from 0 to 25
+        int j = msg[k] - 'A';                         // will be value from 0 to 25 <- one way of calculating the index of a character in the coder[]
         msg[k] = code[j];                             // replace the character
       }
     return new String(msg);
