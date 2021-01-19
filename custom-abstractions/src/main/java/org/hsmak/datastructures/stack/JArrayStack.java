@@ -1,6 +1,6 @@
 package org.hsmak.datastructures.stack;
 
-public class JArrayStack<E> implements IJStack<E>{
+public class JArrayStack<E> implements IJStack<E> {
 
     public static final int capacity = 1000;
     private E[] data;
