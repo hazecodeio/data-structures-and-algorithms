@@ -1,0 +1,44 @@
+<?xml?>
+<project>
+	<settings>
+		<label>lab04</label>
+		<root_path>\</root_path>
+		<output_path>\</output_path>
+		<source_path>\</source_path>
+		<jdkprofile_ref/>
+		<compiler_ref/>
+		<ant_ref/>
+	</settings>
+	<runtimes>
+		<runtime>
+			<label>&lt;Default&gt;</label>
+			<application_ref/>
+			<applet_ref/>
+			<debugger_ref/>
+			<param/>
+			<run/>
+		</runtime>
+	</runtimes>
+	<libraries/>
+	<files>
+		<include>
+			<fileitem>
+				<path>PriorityQueueAsLinkedList.java</path>
+				<source>true</source>
+			</fileitem>
+			<fileitem>
+				<path>task2.java</path>
+				<source>true</source>
+			</fileitem>
+			<fileitem>
+				<path>task3.java</path>
+				<source>true</source>
+			</fileitem>
+			<fileitem>
+				<path>TreePrinter.java</path>
+				<source>true</source>
+			</fileitem>
+		</include>
+	</files>
+	<tasks/>
+</project>

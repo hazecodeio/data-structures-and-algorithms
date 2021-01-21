@@ -1,0 +1,40 @@
+<?xml?>
+<workspace_user>
+	<active_project>
+		<label>lab02</label>
+	</active_project>
+	<projects>
+		<project>
+			<label>lab06</label>
+			<showfiles>false</showfiles>
+		</project>
+		<project>
+			<label>hw01</label>
+			<showfiles>false</showfiles>
+		</project>
+		<project>
+			<label>lab02</label>
+			<showfiles>false</showfiles>
+		</project>
+		<project>
+			<label>lab01</label>
+			<showfiles>false</showfiles>
+		</project>
+		<project>
+			<label>lab03</label>
+			<showfiles>false</showfiles>
+		</project>
+		<project>
+			<label>lab04</label>
+			<showfiles>false</showfiles>
+		</project>
+		<project>
+			<label>lab05</label>
+			<showfiles>false</showfiles>
+		</project>
+		<project>
+			<label>lab07</label>
+			<showfiles>false</showfiles>
+		</project>
+	</projects>
+</workspace_user>

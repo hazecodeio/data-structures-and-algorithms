@@ -1,0 +1,5 @@
+D:\cs\ics202\lab05\Lab05Task1.java
+D:\cs\ics202\lab05\Lab05Task2.java
+D:\cs\ics202\lab05\MyLinkedList2.java
+D:\cs\ics202\lab05\SubstringFrequency.java
+D:\cs\ics202\lab05\TestMyLinkedList2.java

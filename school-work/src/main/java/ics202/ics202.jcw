@@ -1,0 +1,37 @@
+<?xml?>
+<workspace>
+	<settings>
+		<label>ics202</label>
+	</settings>
+	<users>
+		<user>
+			<path>ics202.jcu</path>
+		</user>
+	</users>
+	<projects>
+		<project>
+			<path>lab06\lab06.jcp</path>
+		</project>
+		<project>
+			<path>hw01\hw01.jcp</path>
+		</project>
+		<project>
+			<path>lab02\lab02.jcp</path>
+		</project>
+		<project>
+			<path>lab01\lab01.jcp</path>
+		</project>
+		<project>
+			<path>lab03\lab03.jcp</path>
+		</project>
+		<project>
+			<path>lab04\lab04.jcp</path>
+		</project>
+		<project>
+			<path>lab05\lab05.jcp</path>
+		</project>
+		<project>
+			<path>lab07\lab07.jcp</path>
+		</project>
+	</projects>
+</workspace>
