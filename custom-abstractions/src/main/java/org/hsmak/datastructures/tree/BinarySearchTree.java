@@ -3,6 +3,7 @@ package org.hsmak.datastructures.tree;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.function.Consumer;
 
 class BinarySearchTree<E extends Comparable<E>> {
@@ -93,17 +94,17 @@ class BinarySearchTree<E extends Comparable<E>> {
     // Breadth First Traversal
 
     public void traverseBreadthFirst(Node root, Consumer<E> c) {
-        LinkedList<Node> queue = new LinkedList<>();
-        queue.addLast(root);
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
 
         while (!queue.isEmpty()) {
-            Node n = queue.removeFirst();
+            Node n = queue.remove();
             c.accept(n.value);
 
             if (n.left != null)
-                queue.addLast(n.left);
+                queue.add(n.left);
             if (n.right != null)
-                queue.addLast(n.right);
+                queue.add(n.right);
         }
     }
 
