@@ -1,6 +1,7 @@
 package org.hsmak.datastructures.tree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -88,6 +89,33 @@ class BinarySearchTree<E extends Comparable<E>> {
     /* *****************************
      * ********* Traversal *********
      * *****************************/
+
+    public void traverseBreadthFirst(Node root, Consumer<E> c) {
+        List<Node> queue = new LinkedList<>();
+
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            Node n = queue.remove(0);
+            c.accept(n.value);
+
+            if (n.left != null)
+                queue.add(n.left);
+            if (n.right != null)
+                queue.add(n.right);
+        }
+    }
+
+    public void forEachBreadthFirst(Consumer<E> c) {
+        traverseBreadthFirst(root, c);
+    }
+
+    public List<E> asListBreadthFirst(){
+        List<E> l = new ArrayList<>();
+        forEachBreadthFirst(l::add);
+        return l;
+    }
+
 
     public void traverseInOrder(Node node, Consumer<E> c) {
         if (node != null) {
