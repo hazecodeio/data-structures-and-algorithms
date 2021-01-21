@@ -90,19 +90,20 @@ class BinarySearchTree<E extends Comparable<E>> {
      * ********* Traversal *********
      * *****************************/
 
-    public void traverseBreadthFirst(Node root, Consumer<E> c) {
-        List<Node> queue = new LinkedList<>();
+    // Breadth First Traversal
 
-        queue.add(root);
+    public void traverseBreadthFirst(Node root, Consumer<E> c) {
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.addLast(root);
 
         while (!queue.isEmpty()) {
-            Node n = queue.remove(0);
+            Node n = queue.removeFirst();
             c.accept(n.value);
 
             if (n.left != null)
-                queue.add(n.left);
+                queue.addLast(n.left);
             if (n.right != null)
-                queue.add(n.right);
+                queue.addLast(n.right);
         }
     }
 
@@ -115,7 +116,9 @@ class BinarySearchTree<E extends Comparable<E>> {
         forEachBreadthFirst(l::add);
         return l;
     }
+    //////////////////////
 
+    // First Depth Traversal
 
     public void traverseInOrder(Node node, Consumer<E> c) {
         if (node != null) {

@@ -57,7 +57,7 @@ public class BinarySearchTreeTest {
     }
 
     @Test
-    public void testTraversBreadthFirst(){
+    public void testTraverseBreadthFirst(){
         System.out.println(bst.asListBreadthFirst().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         Assertions.assertThat(bst.asListBreadthFirst()).containsExactly(6,4,8,3,5,7,9);
     }
