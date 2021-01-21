@@ -48,6 +48,12 @@ public class BinarySearchTreeTest {
     public void testPreOrderTraversal() {
         System.out.println(bst.asListPreOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         Assertions.assertThat(bst.asListPreOrder()).containsExactly(6,4,3,5,8,7,9);
+
+        bst.delete(3);
+        Assertions.assertThat(bst.asListPreOrder()).containsExactly(6,4,5,8,7,9);
+
+        bst.delete(6);
+        Assertions.assertThat(bst.asListPreOrder()).containsExactly(7,4,5,8,9);
     }
 
 }
