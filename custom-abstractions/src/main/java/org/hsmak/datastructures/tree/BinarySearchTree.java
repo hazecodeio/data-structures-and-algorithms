@@ -1,9 +1,6 @@
 package org.hsmak.datastructures.tree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 import java.util.function.Consumer;
 
 class BinarySearchTree<E extends Comparable<E>> {
@@ -250,6 +247,55 @@ class BinarySearchTree<E extends Comparable<E>> {
         List<E> l = new ArrayList<>();
         traversePreOrderIterative(l::add);
         return l;
+    }
+
+    ////////////////////////
+    // Iterator
+
+    public Iterator<E> inOrderIterator() {
+
+        return new InOrderIterator(root);
+    }
+
+    public List<E> asListInOrderViaIterator() {
+        List<E> l = new ArrayList<>();
+        InOrderIterator it = new InOrderIterator(root);
+        while (it.hasNext())
+            l.add(it.next());
+        return l;
+    }
+
+    class InOrderIterator implements Iterator<E> {
+        Stack<Node> stack;
+        Node current;
+
+        public InOrderIterator(Node current) {
+            this.current = current;
+            this.stack = new Stack<>();
+            stack.push(current);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        @Override
+        public E next() {
+            while (current.left != null) {
+                current = current.left;
+                stack.push(current);
+            }
+
+            current = stack.pop();
+            E val = current.value;
+
+            if (current.right != null) {
+                current = current.right;
+                stack.push(current);
+            }
+            return val;
+        }
     }
 
     class Node {

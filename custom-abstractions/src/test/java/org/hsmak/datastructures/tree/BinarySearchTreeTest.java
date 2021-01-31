@@ -25,14 +25,18 @@ public class BinarySearchTreeTest {
         System.out.println(bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         Assertions.assertThat(bst.asListInOrder()).containsExactly(3,4,5,6,7,8,9);
         Assertions.assertThat(bst.asListInOrderItr()).containsExactly(3,4,5,6,7,8,9);
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(3,4,5,6,7,8,9);
+
 
         bst.delete(3);
         Assertions.assertThat(bst.asListInOrder()).containsExactly(4,5,6,7,8,9);
         Assertions.assertThat(bst.asListInOrderItr()).containsExactly(4,5,6,7,8,9);
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(4,5,6,7,8,9);
 
         bst.delete(6);
         Assertions.assertThat(bst.asListInOrder()).containsExactly(4,5,7,8,9);
         Assertions.assertThat(bst.asListInOrderItr()).containsExactly(4,5,7,8,9);
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(4,5,7,8,9);
     }
 
     @Test
