@@ -91,17 +91,17 @@ class BinarySearchTree<E extends Comparable<E>> {
     // Breadth First Traversal
 
     public void traverseBreadthFirst(Node root, Consumer<E> c) {
-        Queue<Node> queue = new LinkedList<>();
-        queue.add(root);
+        LinkedList<Node> queue = new LinkedList<>();
+        queue.addFirst(root);
 
         while (!queue.isEmpty()) {
-            Node n = queue.remove();
+            Node n = queue.removeLast();
             c.accept(n.value);
 
             if (n.left != null)
-                queue.add(n.left);
+                queue.addFirst(n.left);
             if (n.right != null)
-                queue.add(n.right);
+                queue.addFirst(n.right);
         }
     }
 
@@ -194,10 +194,9 @@ class BinarySearchTree<E extends Comparable<E>> {
 
     public void traversePreOrderIterative(Consumer<E> c) {
         Stack<Node> stack = new Stack<>();
-        Node current = root;
         stack.push(root);
         while(! stack.isEmpty()) {
-            current = stack.pop();
+            Node current = stack.pop();
             c.accept(current.value);
 
             if(current.right != null)
@@ -211,11 +210,10 @@ class BinarySearchTree<E extends Comparable<E>> {
     public void traversePostOrderIterative(Consumer<E> c) {
         Stack<Node> stack = new Stack<>();
         Node prev = root;
-        Node current = root;
         stack.push(root);
 
         while (!stack.isEmpty()) {
-            current = stack.peek();
+            Node current = stack.peek();
             boolean hasChild = (current.left != null || current.right != null);
             boolean isPrevLastChild = (prev == current.right || (prev == current.left && current.right == null));
 
