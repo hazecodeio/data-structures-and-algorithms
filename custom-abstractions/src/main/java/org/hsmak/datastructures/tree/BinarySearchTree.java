@@ -1,9 +1,6 @@
 package org.hsmak.datastructures.tree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.function.Consumer;
 
 class BinarySearchTree<E extends Comparable<E>> {
@@ -119,7 +116,7 @@ class BinarySearchTree<E extends Comparable<E>> {
     }
     //////////////////////
 
-    // First Depth Traversal
+    // First Depth Traversal - Recursive
 
     public void traverseInOrder(Node node, Consumer<E> c) {
         if (node != null) {
@@ -170,6 +167,85 @@ class BinarySearchTree<E extends Comparable<E>> {
     public List<E> asListPreOrder(){
         List<E> l = new ArrayList<>();
         forEachPreOrder(l::add);
+        return l;
+    }
+
+    ///////////////////////////
+
+    // First Depth Traversal - Iterative
+
+    public void traverseInOrderIterative(Consumer<E> c) {
+        Stack<Node> stack = new Stack<>();
+        Node current = root;
+        stack.push(root);
+        while(! stack.isEmpty()) {
+            while(current.left != null) {
+                current = current.left;
+                stack.push(current);
+            }
+            current = stack.pop();
+            c.accept(current.value);
+            if(current.right != null) {
+                current = current.right;
+                stack.push(current);
+            }
+        }
+    }
+
+    public void traversePreOrderIterative(Consumer<E> c) {
+        Stack<Node> stack = new Stack<>();
+        Node current = root;
+        stack.push(root);
+        while(! stack.isEmpty()) {
+            current = stack.pop();
+            c.accept(current.value);
+
+            if(current.right != null)
+                stack.push(current.right);
+
+            if(current.left != null)
+                stack.push(current.left);
+        }
+    }
+
+    public void traversePostOrderIterative(Consumer<E> c) {
+        Stack<Node> stack = new Stack<>();
+        Node prev = root;
+        Node current = root;
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            current = stack.peek();
+            boolean hasChild = (current.left != null || current.right != null);
+            boolean isPrevLastChild = (prev == current.right || (prev == current.left && current.right == null));
+
+            if (!hasChild || isPrevLastChild) {
+                current = stack.pop();
+                c.accept(current.value);
+                prev = current;
+            } else {
+                if (current.right != null) {
+                    stack.push(current.right);
+                }
+                if (current.left != null) {
+                    stack.push(current.left);
+                }
+            }
+        }
+    }
+    public List<E> asListInOrderItr(){
+        List<E> l = new ArrayList<>();
+        traverseInOrderIterative(l::add);
+        return l;
+    }
+    public List<E> asListPostOrderItr(){
+        List<E> l = new ArrayList<>();
+        traversePostOrderIterative(l::add);
+        return l;
+    }
+    public List<E> asListPreOrderItr(){
+        List<E> l = new ArrayList<>();
+        traversePreOrderIterative(l::add);
         return l;
     }
 
