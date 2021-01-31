@@ -1,6 +1,9 @@
 package org.hsmak.datastructures.tree;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 import java.util.function.Consumer;
 
 class BinarySearchTree<E extends Comparable<E>> {
@@ -10,8 +13,8 @@ class BinarySearchTree<E extends Comparable<E>> {
     public BinarySearchTree() {
     }
 
-    public BinarySearchTree(E... es ) {
-        for(E e : es)
+    public BinarySearchTree(E... es) {
+        for (E e : es)
             add(e);
     }
 
@@ -52,7 +55,7 @@ class BinarySearchTree<E extends Comparable<E>> {
 
         if (value.compareTo(current.value) < 0)
             current.left = deleteRecursive(current.left, value);
-         else if (value.compareTo(current.value) > 0)
+        else if (value.compareTo(current.value) > 0)
             current.right = deleteRecursive(current.right, value);
         else { // value.compareTo(current.value) == 0
             // Case 1: no children
@@ -106,7 +109,7 @@ class BinarySearchTree<E extends Comparable<E>> {
         traverseBreadthFirst(root, c);
     }
 
-    public List<E> asListBreadthFirst(){
+    public List<E> asListBreadthFirst() {
         List<E> l = new ArrayList<>();
         forEachBreadthFirst(l::add);
         return l;
@@ -151,17 +154,19 @@ class BinarySearchTree<E extends Comparable<E>> {
         traversePreOrder(root, c);
     }
 
-    public List<E> asListInOrder(){
+    public List<E> asListInOrder() {
         List<E> l = new ArrayList<>();
         forEachInOrder(l::add);
         return l;
     }
-    public List<E> asListPostOrder(){
+
+    public List<E> asListPostOrder() {
         List<E> l = new ArrayList<>();
         forEachPostOrder(l::add);
         return l;
     }
-    public List<E> asListPreOrder(){
+
+    public List<E> asListPreOrder() {
         List<E> l = new ArrayList<>();
         forEachPreOrder(l::add);
         return l;
@@ -175,14 +180,14 @@ class BinarySearchTree<E extends Comparable<E>> {
         Stack<Node> stack = new Stack<>();
         Node current = root;
         stack.push(root);
-        while(! stack.isEmpty()) {
-            while(current.left != null) {
+        while (!stack.isEmpty()) {
+            while (current.left != null) {
                 current = current.left;
                 stack.push(current);
             }
             current = stack.pop();
             c.accept(current.value);
-            if(current.right != null) {
+            if (current.right != null) {
                 current = current.right;
                 stack.push(current);
             }
@@ -192,14 +197,14 @@ class BinarySearchTree<E extends Comparable<E>> {
     public void traversePreOrderIterative(Consumer<E> c) {
         Stack<Node> stack = new Stack<>();
         stack.push(root);
-        while(! stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             Node current = stack.pop();
             c.accept(current.value);
 
-            if(current.right != null)
+            if (current.right != null)
                 stack.push(current.right);
 
-            if(current.left != null)
+            if (current.left != null)
                 stack.push(current.left);
         }
     }
@@ -228,17 +233,20 @@ class BinarySearchTree<E extends Comparable<E>> {
             }
         }
     }
-    public List<E> asListInOrderItr(){
+
+    public List<E> asListInOrderItr() {
         List<E> l = new ArrayList<>();
         traverseInOrderIterative(l::add);
         return l;
     }
-    public List<E> asListPostOrderItr(){
+
+    public List<E> asListPostOrderItr() {
         List<E> l = new ArrayList<>();
         traversePostOrderIterative(l::add);
         return l;
     }
-    public List<E> asListPreOrderItr(){
+
+    public List<E> asListPreOrderItr() {
         List<E> l = new ArrayList<>();
         traversePreOrderIterative(l::add);
         return l;
