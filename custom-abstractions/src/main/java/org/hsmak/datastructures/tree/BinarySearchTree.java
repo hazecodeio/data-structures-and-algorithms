@@ -50,14 +50,11 @@ class BinarySearchTree<E extends Comparable<E>> {
             return null;
         }
 
-
-        if (value.compareTo(current.value) < 0) {
+        if (value.compareTo(current.value) < 0)
             current.left = deleteRecursive(current.left, value);
-            return current;
-        } else if (value.compareTo(current.value) > 0) {
+         else if (value.compareTo(current.value) > 0)
             current.right = deleteRecursive(current.right, value);
-            return current;
-        }else { // value.compareTo(current.value) == 0
+        else { // value.compareTo(current.value) == 0
             // Case 1: no children
             if (current.left == null && current.right == null) {
                 return null;
@@ -75,8 +72,8 @@ class BinarySearchTree<E extends Comparable<E>> {
             E smallestValue = findSmallestValue(current.right);
             current.value = smallestValue;
             current.right = deleteRecursive(current.right, smallestValue);
-            return current;
         }
+        return current;
     }
 
     private E findSmallestValue(Node current) {
