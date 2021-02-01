@@ -253,7 +253,6 @@ class BinarySearchTree<E extends Comparable<E>> {
     // Iterator
 
     public Iterator<E> inOrderIterator() {
-
         return new InOrderIterator(root);
     }
 
@@ -294,6 +293,43 @@ class BinarySearchTree<E extends Comparable<E>> {
                 current = current.right;
                 stack.push(current);
             }
+            return val;
+        }
+    }
+
+    /////
+    public Iterator<E> iterator(){
+        return new PreOrderIterator(root);
+    }
+    public List<E> asListPreOrderViaIterator(){
+        List<E> l = new ArrayList<>();
+        PreOrderIterator it = new PreOrderIterator(root);
+        while(it.hasNext())
+            l.add(it.next());
+        return l;
+    }
+    class PreOrderIterator implements Iterator<E>{
+        Stack<Node> stack;
+        Node current;
+        PreOrderIterator(Node current){
+            this.current = current;
+            stack = new Stack<>();
+            stack.push(current);
+        }
+        @Override
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        @Override
+        public E next() {
+            Node current = stack.pop();
+            E val = current.value;
+            if(current.right != null)
+                stack.push(current.right);
+            if(current.left != null)
+                stack.push(current.left);
+
             return val;
         }
     }
