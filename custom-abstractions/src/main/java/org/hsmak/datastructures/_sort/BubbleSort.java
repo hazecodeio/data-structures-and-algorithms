@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * works by repeatedly swapping the adjacent elements if they are in wrong order.
  */
-public class JBubbleSort {
+public class BubbleSort {
 
 
     public static <E extends Comparable<E>> E[] bubbleSort(E[] array) {
@@ -60,7 +60,7 @@ public class JBubbleSort {
 
     public static void main(String[] args) {
 
-        System.out.println(Arrays.toString(JBubbleSort.<String>bubbleSort(new String[]{"B","A", "C"})));
-        System.out.println(Arrays.toString(JBubbleSort.<String>bubbleSortOptimized(new String[]{"B","A", "C"})));
+        System.out.println(Arrays.toString(BubbleSort.<String>bubbleSort(new String[]{"B","A", "C"})));
+        System.out.println(Arrays.toString(BubbleSort.<String>bubbleSortOptimized(new String[]{"B","A", "C"})));
     }
 }
