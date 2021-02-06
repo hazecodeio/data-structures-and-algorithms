@@ -33,22 +33,22 @@ public class MyHeap<E extends Comparable<E>> {
     }
 
     public void insert(E e) {
-        data.add(e);
+        data.add(e); // add to the end
         int bottomIndex = data.size() - 1;
         trickleUp(bottomIndex);
     }
 
     private void trickleUp(int bottomIndex) {
         int parentIndex = parentIndex(bottomIndex);
-        E bottomElement = data.get(bottomIndex);
+        E bottomElement = data.get(bottomIndex); // get hold of the bottom element
 
         while (bottomIndex > 0 &&
-                cmprtr.compare(data.get(parentIndex), bottomElement) < 0) {
+                cmprtr.compare(bottomElement, data.get(parentIndex)) > 0) {
 
-            data.set(bottomIndex, data.get(parentIndex));  // move it down
+            data.set(bottomIndex, data.get(parentIndex));  // move the parent down
 
             bottomIndex = parentIndex;
-            parentIndex = (parentIndex - 1) / 2;
+            parentIndex = parentIndex(parentIndex); // parent of the parent
         }
         data.set(bottomIndex, bottomElement);
     }
