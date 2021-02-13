@@ -1,10 +1,20 @@
 package org.hsmak.datastructures.heap;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class MyHeap<E extends Comparable<E>> {
+public class MyHeapWithComparable<E extends Comparable<E>> {
     List<E> data = new ArrayList<>();
+    Comparator<E> cmprtr;
+
+    public MyHeapWithComparable() {
+        cmprtr = new DefaultComparator();
+    }
+
+    public MyHeapWithComparable(Comparator<E> comp) {
+        this.cmprtr = comp;
+    }
 
     private int leftIndex(int index) {
         return 2 * index + 1;
@@ -33,7 +43,7 @@ public class MyHeap<E extends Comparable<E>> {
         E bottomElement = data.get(bottomIndex); // get hold of the bottom element
 
         while (bottomIndex > 0 &&
-                bottomElement.compareTo(data.get(parentIndex)) > 0) {
+                cmprtr.compare(bottomElement, data.get(parentIndex)) > 0) {
 
             data.set(bottomIndex, data.get(parentIndex));  // move the parent down
 
@@ -66,13 +76,13 @@ public class MyHeap<E extends Comparable<E>> {
 
             // find larger child
             if (rightChild < data.size() &&
-                    data.get(leftChild).compareTo(data.get(rightChild)) < 0)
+                    cmprtr.compare(data.get(leftChild), data.get(rightChild)) < 0)
                 largerChild = rightChild;
             else
                 largerChild = leftChild;
 
             // top >= largerChild?
-            if (top.compareTo(data.get(largerChild)) >= 0)
+            if (cmprtr.compare(top, data.get(largerChild)) >= 0)
                 break;
 
             // shift child up
@@ -80,6 +90,13 @@ public class MyHeap<E extends Comparable<E>> {
             index = largerChild;            // go down
         }
         data.set(index, top);            // root to index
+    }
+
+    private class DefaultComparator implements Comparator<E> {
+        @Override
+        public int compare(E o1, E o2) {
+            return o1.compareTo(o2);
+        }
     }
 }
 

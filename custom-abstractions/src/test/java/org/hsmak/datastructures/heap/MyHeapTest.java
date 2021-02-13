@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class MyHeapTest {
-
-
     
     @Test
     public void testMaxHeap(){
@@ -38,7 +36,7 @@ public class MyHeapTest {
 
     @Test
     public void testMinHeap(){
-        MyHeap<Integer> minHeap = new MyHeap<>(Comparator.<Integer>reverseOrder());
+        MyHeapWithComparable<Integer> minHeap = new MyHeapWithComparable<>(Comparator.<Integer>reverseOrder());
 
         minHeap.insert(70);
         minHeap.insert(40);
