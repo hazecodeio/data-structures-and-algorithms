@@ -2,29 +2,29 @@ package org.hsmak.datastructures.linkedlist;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class JDoublyLinkedListOO<E> {
+import java.util.function.Consumer;
+
+public class DoublyLinkedList<E> {
 
     private Node head;
     private Node tail;
 
     private int size;
 
-    class Node {
-        E e;
-        Node next;
-        Node prev;
+    public static void main(String[] args) {
+        DoublyLinkedList<String> dll = new DoublyLinkedList<>();
+        dll.addLast("A");
+        dll.addLast("B");
+        dll.addLast("Z");
+        dll.addLast("E");
 
-        Node(E e) {// always specify what NextNode will be for this Node
-            this.e = e;
-        }
+        dll.forEach(System.out::print);
+        System.out.println();
+        System.out.println(dll.remove("E"));
+//        System.out.println(dll.removeFirst());
+//        System.out.println(dll.removeLast());
+        dll.forEach(System.out::print);
 
-        @Override
-        public String toString() {
-            return new ToStringBuilder(this)
-                    .append("e", e)
-//                    .append("next", next)
-                    .toString();
-        }
     }
 
     public void addFirst(E e) {
@@ -57,20 +57,16 @@ public class JDoublyLinkedListOO<E> {
         if (head == null)
             return null;
 
-        Node n = head;
-        size--;
-
-        if (head.next == null) {//case: one element
+        E e = head.e;
+        if (head == tail) { // There is only one element
             head = null;
             tail = null;
-            return n.e;
+        } else {
+            head = head.next;
+            head.prev = null;
         }
-
-        head = head.next;
-        head.prev = null;
-
-
-        return n.e;
+        size--;
+        return e;
     }
 
     /**
@@ -82,22 +78,18 @@ public class JDoublyLinkedListOO<E> {
         if (head == null)
             return null;
 
-        if (head.next == null) { //If all there is one element
-            E e = head.e;
+        E e = tail.e;
+
+        if (head == tail) { // There is only one element
             head = null;
             tail = null;
-            size--;
-            return e;
+        } else {
+            tail = tail.prev;
+            tail.next = null;
         }
 
-        E e = tail.e;
-        tail = tail.prev;
-        tail.next = null;
-
         size--;
-
         return e;
-
     }
 
     public E get(E e) {
@@ -121,14 +113,14 @@ public class JDoublyLinkedListOO<E> {
 
         for (Node n = head; n != null; n = n.next) {
             if (n.e.equals(e)) {
-                if (n == head) {
+                if (n == head) { // removeFirst()
                     head = head.next;
                     head.prev = null;
 
                     size--;
 
                     return n.e;
-                } else if (n == tail) {
+                } else if (n == tail) { // removeLast()
                     tail = tail.prev;
                     tail.next = null;
 
@@ -151,6 +143,46 @@ public class JDoublyLinkedListOO<E> {
         return null;
     }
 
+    public E remove2(E e) {
+        if (head == null)
+            return null;
+
+        if (head.e.equals(e))
+            return removeFirst();
+
+        if (tail.e.equals(e))
+            return removeLast();
+
+        for (Node n = head; n != null; n = n.next) {
+            if (n.e.equals(e)) {
+                E elem = n.e;
+                Node prv = n.prev;
+                Node nxt = n.next;
+
+                prv.next = n.next;
+                nxt.prev = n.prev;
+
+                n.next = null;
+                n.prev = null;
+
+                size--;
+
+                return elem;
+            }
+        }
+        return null;
+    }
+
+    public void forEach(Consumer<E> c) {
+        if (head == null)
+            return;
+
+        for (Node n = head; n != null; n = n.next) {
+            c.accept(n.e);
+        }
+
+    }
+
 
     @Override
     public String toString() {
@@ -161,16 +193,22 @@ public class JDoublyLinkedListOO<E> {
                 .toString();
     }
 
-    public static void main(String[] args) {
-        JDoublyLinkedListOO<String> jdll = new JDoublyLinkedListOO<>();
-        jdll.addLast("A");
-        jdll.addLast("B");
-        jdll.addLast("Z");
-        jdll.addLast("E");
-        System.out.println(jdll.remove("B"));
-        System.out.println();
+    class Node {
+        Node prev;
+        E e;
+        Node next;
 
+        public Node() {
+        }
+
+        public Node(E e) {// always specify what NextNode will be for this Node
+            this.e = e;
+        }
+
+        public Node(Node prev, E e, Node next) {
+            this.prev = prev;
+            this.e = e;
+            this.next = next;
+        }
     }
 }
-
-

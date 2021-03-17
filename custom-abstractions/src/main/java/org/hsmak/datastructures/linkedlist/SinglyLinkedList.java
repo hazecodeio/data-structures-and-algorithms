@@ -2,12 +2,42 @@ package org.hsmak.datastructures.linkedlist;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class JSinglyLinkedListOO<E> {
+import java.util.function.Consumer;
+
+public class SinglyLinkedList<E> {
 
     private Node head;
     private Node tail;
 
     private int size;
+
+    public static void main(String[] args) {
+        SinglyLinkedList<String> sll = new SinglyLinkedList<>();
+        sll.addFirst("A");
+        System.out.println(sll.removeLast());
+        sll.addFirst("B");
+        sll.addFirst("Z");
+        sll.addFirst("E");
+
+        System.out.println(sll.get("Z"));
+        sll.forEach(System.out::print);
+        System.out.println("\n");
+
+        SinglyLinkedList<String> sll2 = new SinglyLinkedList<>();
+        sll2.addLast("A");
+        sll2.addLast("B");
+        sll2.addLast("Z");
+        sll2.addLast("E");
+
+        sll2.forEach(System.out::print);
+        System.out.println();
+
+        System.out.println(sll2.remove("B"));
+
+        sll2.forEach(System.out::print);
+        System.out.println();
+
+    }
 
     public boolean isEmpty() {
         return size == 0;
@@ -18,23 +48,6 @@ public class JSinglyLinkedListOO<E> {
             return null;
 
         return head.e;
-    }
-
-    class Node {
-        E e;
-        Node next;
-
-        Node(E e) {// always specify what NextNode will be for this Node
-            this.e = e;
-        }
-
-        @Override
-        public String toString() {
-            return new ToStringBuilder(this)
-                    .append("e", e)
-//                    .append("next", next)
-                    .toString();
-        }
     }
 
     public void addFirst(E e) {
@@ -157,6 +170,16 @@ public class JSinglyLinkedListOO<E> {
         return size;
     }
 
+    public void forEach(Consumer<E> c) {
+        if (head == null)
+            return;
+
+        for (Node n = head; n != null; n = n.next) {
+            c.accept(n.e);
+        }
+
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -166,26 +189,21 @@ public class JSinglyLinkedListOO<E> {
                 .toString();
     }
 
-    public static void main(String[] args) {
-        JSinglyLinkedListOO<String> jll = new JSinglyLinkedListOO<>();
-        jll.addFirst("A");
-        System.out.println(jll.removeLast());
-        jll.addFirst("B");
-        jll.addFirst("Z");
-        jll.addFirst("E");
+    class Node {
+        E e;
+        Node next;
 
-        System.out.println(jll.get("Z"));
+        Node(E e) {// always specify what NextNode will be for this Node
+            this.e = e;
+        }
 
-        JSinglyLinkedListOO<String> jll2 = new JSinglyLinkedListOO<>();
-        jll2.addLast("A");
-        jll2.addLast("B");
-        jll2.addLast("Z");
-        jll2.addLast("E");
-
-        System.out.println(jll2);
-        System.out.println(jll2.remove("B"));
-        System.out.println(jll2);
-
+        @Override
+        public String toString() {
+            return new ToStringBuilder(this)
+                    .append("e", e)
+//                    .append("next", next)
+                    .toString();
+        }
     }
 }
 

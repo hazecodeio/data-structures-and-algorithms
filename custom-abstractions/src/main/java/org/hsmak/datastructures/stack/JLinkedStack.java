@@ -1,6 +1,6 @@
 package org.hsmak.datastructures.stack;
 
-import org.hsmak.datastructures.linkedlist.JSinglyLinkedListOO;
+import org.hsmak.datastructures.linkedlist.SinglyLinkedList;
 
 /**
  * Adapter Pattern
@@ -8,7 +8,7 @@ import org.hsmak.datastructures.linkedlist.JSinglyLinkedListOO;
  */
 public class JLinkedStack<E> implements IJStack<E> {
 
-    private JSinglyLinkedListOO<E> data = new JSinglyLinkedListOO<>();
+    private SinglyLinkedList<E> data = new SinglyLinkedList<>();
 
     @Override
     public int size() {
