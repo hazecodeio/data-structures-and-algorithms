@@ -2,8 +2,8 @@ package org.hsmak.datastructures.stack;
 
 import java.util.Arrays;
 
-public class JStackOps {
-    public static void main(String... args){
+public class StackOps {
+    public static void main(String... args) {
 
         System.out.println(Arrays.toString(reverse(new String[]{"A", "B", "C"})));
     }
@@ -15,12 +15,12 @@ public class JStackOps {
      * @param <E>
      * @return
      */
-    public static <E> E[] reverse(E[] data){
-        JArrayStack<E> jas = new JArrayStack<>(data.length);
-        for (E e : data){
+    public static <E> E[] reverse(E[] data) {
+        ArrayStack<E> jas = new ArrayStack<>(data.length);
+        for (E e : data) {
             jas.push(e);
         }
-        for(int i = 0; i<data.length; i++){
+        for (int i = 0; i < data.length; i++) {
             data[i] = jas.pop();
         }
         return data;

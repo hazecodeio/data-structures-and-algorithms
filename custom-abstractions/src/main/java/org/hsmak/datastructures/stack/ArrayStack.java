@@ -1,17 +1,28 @@
 package org.hsmak.datastructures.stack;
 
-public class JArrayStack<E> implements IJStack<E> {
+public class ArrayStack<E> implements IStack<E> {
 
     public static final int capacity = 1000;
     private E[] data;
     private int t = -1;
 
-    public JArrayStack(){
+    public ArrayStack() {
         this(capacity);
     }
 
-    public JArrayStack(int capacity) {
-        data = (E[])new Object[capacity];//ToDo - notice the downcast
+    public ArrayStack(int capacity) {
+        data = (E[]) new Object[capacity];//ToDo - notice the downcast
+    }
+
+    public static void main(String... args) {
+        ArrayStack<String> as = new ArrayStack<>();
+        as.push("A");
+        as.push("B");
+        as.push("C");
+        System.out.println(as.size());
+        System.out.println(as.top());
+        System.out.println(as.pop());
+        System.out.println(as.size());
     }
 
     @Override
@@ -26,7 +37,7 @@ public class JArrayStack<E> implements IJStack<E> {
 
     @Override
     public void push(E e) {
-        if(size() == data.length)
+        if (size() == data.length)
             throw new IllegalStateException("Stack is full");
 
         data[++t] = e;
@@ -34,7 +45,7 @@ public class JArrayStack<E> implements IJStack<E> {
 
     @Override
     public E top() {
-        if(isEmpty())
+        if (isEmpty())
             return null;
 
         return data[t];
@@ -42,24 +53,13 @@ public class JArrayStack<E> implements IJStack<E> {
 
     @Override
     public E pop() {
-        if(isEmpty())
+        if (isEmpty())
             return null;
 
         E elem = data[t];
         data[t--] = null;// deference to help garbage collection, then decrement t
 
         return elem;
-    }
-
-    public static void main(String... args){
-        JArrayStack<String> jas = new JArrayStack<>();
-        jas.push("A");
-        jas.push("B");
-        jas.push("C");
-        System.out.println(jas.size());
-        System.out.println(jas.top());
-        System.out.println(jas.pop());
-        System.out.println(jas.size());
     }
 
 }

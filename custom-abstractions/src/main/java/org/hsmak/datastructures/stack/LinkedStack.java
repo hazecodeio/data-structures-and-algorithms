@@ -4,11 +4,21 @@ import org.hsmak.datastructures.linkedlist.SinglyLinkedList;
 
 /**
  * Adapter Pattern
+ *
  * @param <E>
  */
-public class JLinkedStack<E> implements IJStack<E> {
+public class LinkedStack<E> implements IStack<E> {
 
     private SinglyLinkedList<E> data = new SinglyLinkedList<>();
+
+    public static void main(String... args) {
+        LinkedStack<String> ls = new LinkedStack<>();
+        ls.push("A");
+        ls.push("B");
+        ls.push("C");
+        System.out.println(ls.pop());
+
+    }
 
     @Override
     public int size() {
@@ -34,14 +44,5 @@ public class JLinkedStack<E> implements IJStack<E> {
     @Override
     public E pop() {
         return data.removeFirst();
-    }
-
-    public static void main(String... args){
-        JLinkedStack<String> jls = new JLinkedStack<>();
-        jls.push("A");
-        jls.push("B");
-        jls.push("C");
-        System.out.println(jls.pop());
-
     }
 }

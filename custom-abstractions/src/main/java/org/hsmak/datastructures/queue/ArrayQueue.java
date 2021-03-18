@@ -16,7 +16,7 @@ import java.util.Arrays;
  *
  * @param <E>
  */
-public class JArrayQueue<E> implements IJQueue<E> {
+public class ArrayQueue<E> implements IQueue<E> {
 
     private final static int CAPACITY = 1000;
 
@@ -25,12 +25,24 @@ public class JArrayQueue<E> implements IJQueue<E> {
     private int sz;
 
 
-    public JArrayQueue() {
+    public ArrayQueue() {
         this(CAPACITY);
     }
 
-    public JArrayQueue(int capacity) {
+    public ArrayQueue(int capacity) {
         data = (E[]) new Object[capacity];
+    }
+
+    public static void main(String[] args) {
+        ArrayQueue<String> aq = new ArrayQueue<>(10);
+        aq.enqueue("A");
+        aq.enqueue("B");
+        aq.enqueue("C");
+        System.out.println(aq.size());
+        System.out.println(aq.dequeue());
+        aq.enqueue("D");
+        System.out.println(aq);
+
     }
 
     @Override
@@ -53,6 +65,7 @@ public class JArrayQueue<E> implements IJQueue<E> {
 
     /**
      * Enqueue in the back of the queue
+     *
      * @param e
      */
     @Override
@@ -69,6 +82,7 @@ public class JArrayQueue<E> implements IJQueue<E> {
 
     /**
      * Dequeue from the front of the queue
+     *
      * @return
      */
     @Override
@@ -90,17 +104,5 @@ public class JArrayQueue<E> implements IJQueue<E> {
                 .append("sz", sz)
                 .append("data", Arrays.toString(data))
                 .toString();
-    }
-
-    public static void main(String[] args) {
-        JArrayQueue<String> jaq = new JArrayQueue<>(10);
-        jaq.enqueue("A");
-        jaq.enqueue("B");
-        jaq.enqueue("C");
-        System.out.println(jaq.size());
-        System.out.println(jaq.dequeue());
-        jaq.enqueue("D");
-        System.out.println(jaq);
-
     }
 }

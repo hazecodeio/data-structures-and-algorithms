@@ -1,6 +1,6 @@
 package org.hsmak.datastructures.stack;
 
-public interface IJStack<E> {
+public interface IStack<E> {
     int size();
     boolean isEmpty();
     void push(E e);
