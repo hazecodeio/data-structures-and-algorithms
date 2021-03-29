@@ -2,6 +2,7 @@ package org.hsmak.datastructures.linkedlist;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.lang.reflect.Array;
 import java.util.function.Consumer;
 
 public class DoublyLinkedList<E> {
@@ -171,6 +172,29 @@ public class DoublyLinkedList<E> {
             }
         }
         return null;
+    }
+
+    public void reverse() {
+        Node current = head;
+        head = tail;
+        tail = current;
+        while (current != null) {
+            Node next = current.next;
+            Node prev = current.prev;
+            current.next = prev;
+            current.prev = next;
+            current = next;
+        }
+    }
+
+    public <T> T[] asArray(Class<T> clazz) {
+        T[] llAsArray = (T[]) Array.newInstance(clazz, size);
+
+        Node node = this.head;
+        for (int i = 0; node != null; node = node.next)
+            llAsArray[i++] = (T) node.e;
+
+        return llAsArray;
     }
 
     public void forEach(Consumer<E> c) {
