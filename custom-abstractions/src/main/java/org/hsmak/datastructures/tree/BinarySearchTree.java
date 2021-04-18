@@ -80,6 +80,16 @@ class BinarySearchTree<E extends Comparable<E>> {
         return current.left == null ? current.value : findSmallestValue(current.left);
     }
 
+    public int height(Node root) {
+        if (root == null)
+            return -1;
+
+        int left = 1 + height(root.left);
+        int right = 1 + height(root.right);
+
+        return Integer.max(left, right);
+    }
+
 
     /* *****************************
      * ********* Traversal *********
@@ -264,6 +274,19 @@ class BinarySearchTree<E extends Comparable<E>> {
         return l;
     }
 
+    /////
+    public Iterator<E> iterator() {
+        return new PreOrderIterator(root);
+    }
+
+    public List<E> asListPreOrderViaIterator() {
+        List<E> l = new ArrayList<>();
+        PreOrderIterator it = new PreOrderIterator(root);
+        while (it.hasNext())
+            l.add(it.next());
+        return l;
+    }
+
     class InOrderIterator implements Iterator<E> {
         Stack<Node> stack;
         Node current;
@@ -297,25 +320,16 @@ class BinarySearchTree<E extends Comparable<E>> {
         }
     }
 
-    /////
-    public Iterator<E> iterator(){
-        return new PreOrderIterator(root);
-    }
-    public List<E> asListPreOrderViaIterator(){
-        List<E> l = new ArrayList<>();
-        PreOrderIterator it = new PreOrderIterator(root);
-        while(it.hasNext())
-            l.add(it.next());
-        return l;
-    }
-    class PreOrderIterator implements Iterator<E>{
+    class PreOrderIterator implements Iterator<E> {
         Stack<Node> stack;
         Node current;
-        PreOrderIterator(Node current){
+
+        PreOrderIterator(Node current) {
             this.current = current;
             stack = new Stack<>();
             stack.push(current);
         }
+
         @Override
         public boolean hasNext() {
             return !stack.isEmpty();
@@ -325,9 +339,9 @@ class BinarySearchTree<E extends Comparable<E>> {
         public E next() {
             Node current = stack.pop();
             E val = current.value;
-            if(current.right != null)
+            if (current.right != null)
                 stack.push(current.right);
-            if(current.left != null)
+            if (current.left != null)
                 stack.push(current.left);
 
             return val;
