@@ -17,12 +17,15 @@ public class AdjacencyMapGraph<V> {
     }
 
     public static void main(String[] args) {
+
         AdjacencyMapGraph<String> graph = new AdjacencyMapGraph<>();
+
         graph.addVertex("Bob");
         graph.addVertex("Alice");
         graph.addVertex("Mark");
         graph.addVertex("Rob");
         graph.addVertex("Maria");
+
         graph.addEdge("Bob", "Alice");
         graph.addEdge("Bob", "Rob");
         graph.addEdge("Alice", "Mark");
@@ -60,9 +63,9 @@ public class AdjacencyMapGraph<V> {
     }
 
     void removeVertex(V val) {
-        Vertex toBeRemovedVert = new Vertex(val);
-        adjMap.values().forEach(e -> e.remove(toBeRemovedVert));
-        adjMap.remove(toBeRemovedVert);
+        Vertex toBeRemovedVer = new Vertex(val);
+        adjMap.values().forEach(e -> e.remove(toBeRemovedVer));
+        adjMap.remove(toBeRemovedVer);
     }
 
     void removeEdge(V val1, V val2) {
