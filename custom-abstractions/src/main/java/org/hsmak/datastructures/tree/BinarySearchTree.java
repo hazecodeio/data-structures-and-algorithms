@@ -112,6 +112,51 @@ class BinarySearchTree<E extends Comparable<E>> {
         }
     }
 
+    public void traverseBreadthFirst2(Node root, Consumer<E> c) {
+        LinkedList<Node> levelQ = new LinkedList<>();
+        LinkedList<Node> childrenQ = new LinkedList<>();
+        levelQ.addFirst(root);
+
+        while (!levelQ.isEmpty()) {
+            while (!levelQ.isEmpty()) {
+                Node n = levelQ.removeLast();
+                c.accept(n.value);
+
+                if (n.left != null)
+                    childrenQ.addFirst(n.left);
+                if (n.right != null)
+                    childrenQ.addFirst(n.right);
+            }
+            while (!childrenQ.isEmpty()) {
+                levelQ.addFirst(childrenQ.removeLast());
+            }
+        }
+    }
+
+    void traverseBreadthFirstRec(Node root, Consumer<E> c) {
+        LinkedList<Node> q = new LinkedList<>();
+        q.addFirst(root);
+        rec(q, c);
+    }
+
+    private void rec(LinkedList<Node> q, Consumer<E> c) {
+        if (q.isEmpty())
+            return;
+
+        LinkedList<Node> nextQ = new LinkedList<>();
+
+        while (!q.isEmpty()) {
+            Node n = q.removeLast();
+            c.accept(n.value);
+            if (n.left != null)
+                nextQ.addFirst(n.left);
+            if (n.right != null)
+                nextQ.addFirst(n.right);
+        }
+        rec(nextQ, c);
+    }
+
+
     public void forEachBreadthFirst(Consumer<E> c) {
         traverseBreadthFirst(root, c);
     }
@@ -119,6 +164,18 @@ class BinarySearchTree<E extends Comparable<E>> {
     public List<E> asListBreadthFirst() {
         List<E> l = new ArrayList<>();
         forEachBreadthFirst(l::add);
+        return l;
+    }
+
+    public List<E> asListBreadthFirst2() {
+        List<E> l = new ArrayList<>();
+        traverseBreadthFirst2(root, l::add);
+        return l;
+    }
+
+    public List<E> asListBreadthFirstRec() {
+        List<E> l = new ArrayList<>();
+        traverseBreadthFirstRec(root, l::add);
         return l;
     }
     //////////////////////
