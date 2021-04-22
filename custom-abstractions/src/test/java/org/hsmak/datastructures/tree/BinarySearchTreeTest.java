@@ -81,4 +81,11 @@ public class BinarySearchTreeTest {
 
     }
 
+    @Test
+    public void testConvertingBinaryTreeToDoublyLinkedList(){
+        System.out.println(bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        bst.flattenToDoublyLinkedList();
+        System.out.println(bst.asListDLL().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+    }
+
 }

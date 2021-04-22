@@ -31,8 +31,6 @@ class BinarySearchTree<E extends Comparable<E>> {
             current.left = addRecursive(current.left, value);
         else if (value.compareTo(current.value) > 0)
             current.right = addRecursive(current.right, value);
-        else
-            return current;
 
         return current;
     }
@@ -90,6 +88,73 @@ class BinarySearchTree<E extends Comparable<E>> {
         return Integer.max(left, right);
     }
 
+    /* ***********************************************
+     * ********* Convert to DoublyLinkedList *********
+     * ***********************************************/
+
+    public void flattenToDoublyLinkedList(){
+        helpFlatten(root);
+    }
+
+    private void helpFlatten(Node current) {
+        if(current == null){
+            return;
+        }
+        helpFlatten(current.left);
+        helpFlatten(current.right);
+        //checking if root's left child exist. if does not exist we will move forward without any changes.
+
+        if(current.left!=null){
+            //if right child does not exist we will simply change left child to right child
+            if(current.right==null){
+                current.right = current.left;
+                current.left = null;
+                return;
+            }
+            //if exist we will traverse to the end of the left child linkedlist and connect it to the right child linkedlist
+            Node temp = current.left;
+            while(temp.right!=null){
+                temp = temp.right;
+            }
+            temp.right = current.right;
+            current.right = current.left;
+            current.left = null;
+        }
+    }
+
+    public List<E> asListDLL(){
+        List<E> l = new ArrayList<>();
+
+        for(Node head = root; head != null; head = head.right)
+            l.add(head.value);
+
+        return l;
+    }
+
+    public void flatten2(Node root) {
+
+        if(root == null)
+            return;
+
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        Node current = root , prev = null;
+
+        while (!stack.isEmpty()){
+
+            current = stack.pop();
+            if(prev != null)
+                prev.right = current;
+
+            if(current.right != null)
+                stack.push(current.right);
+            if(current.left != null)
+                stack.push(current.left);
+
+            current.left = null;
+            prev = current;
+        }
+    }
 
     /* *****************************
      * ********* Traversal *********
