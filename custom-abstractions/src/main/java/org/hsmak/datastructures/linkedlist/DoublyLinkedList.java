@@ -103,7 +103,6 @@ public class DoublyLinkedList<E> {
     }
 
     /**
-     * ToDo
      *
      * @param e
      * @return
