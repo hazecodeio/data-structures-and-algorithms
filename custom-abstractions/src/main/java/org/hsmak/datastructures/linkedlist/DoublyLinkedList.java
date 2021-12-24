@@ -173,6 +173,10 @@ public class DoublyLinkedList<E> {
         return null;
     }
 
+    /**
+     * Note that we're not moving the elements themselves, rather,
+     * we're just changing the references such that `next` is `prev` and vice versa
+     */
     public void reverse() {
         Node current = head;
         head = tail;
