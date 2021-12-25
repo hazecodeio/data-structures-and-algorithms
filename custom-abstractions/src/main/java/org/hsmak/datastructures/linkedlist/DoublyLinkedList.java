@@ -18,13 +18,26 @@ public class DoublyLinkedList<E> {
         dll.addLast("B");
         dll.addLast("Z");
         dll.addLast("E");
+        dll.addLast("D");
 
-        dll.forEach(System.out::print);
+        dll.forEachAtHead(System.out::print);
         System.out.println();
+        dll.forEachAtTail(System.out::print);
+        System.out.println();
+
+        dll.reverse();
+
+        System.out.println();
+        dll.forEachAtHead(System.out::print);
+        System.out.println();
+        dll.forEachAtTail(System.out::print);
+        System.out.println();
+
+
         System.out.println(dll.remove("E"));
 //        System.out.println(dll.removeFirst());
 //        System.out.println(dll.removeLast());
-        dll.forEach(System.out::print);
+        dll.forEachAtHead(System.out::print);
 
     }
 
@@ -178,9 +191,12 @@ public class DoublyLinkedList<E> {
      * we're just changing the references such that `next` is `prev` and vice versa
      */
     public void reverse() {
+        //Swapping Head with Tail
         Node current = head;
         head = tail;
         tail = current;
+
+        //Swapping each node's next/prev references with prev/next ones and vice versa
         while (current != null) {
             Node next = current.next;
             Node prev = current.prev;
@@ -201,10 +217,25 @@ public class DoublyLinkedList<E> {
     }
 
     public void forEach(Consumer<E> c) {
+        forEachAtHead(c);
+
+    }
+
+    public void forEachAtHead(Consumer<E> c) {
         if (head == null)
             return;
 
         for (Node n = head; n != null; n = n.next) {
+            c.accept(n.e);
+        }
+
+    }
+
+    public void forEachAtTail(Consumer<E> c) {
+        if (tail == null)
+            return;
+
+        for (Node n = tail; n != null; n = n.prev) {
             c.accept(n.e);
         }
 
