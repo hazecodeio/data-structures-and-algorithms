@@ -483,5 +483,9 @@ class BinarySearchTree<E extends Comparable<E>> {
             this.left = left;
             this.right = right;
         }
+
+        public Node(E value) {
+            this.value = value;
+        }
     }
 }
