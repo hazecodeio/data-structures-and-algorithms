@@ -76,8 +76,8 @@ public class BinarySearchTreeTest {
     public void testTraverseBreadthFirst(){
         System.out.println(bst.asListBreadthFirst().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         Assertions.assertThat(bst.asListBreadthFirst()).containsExactly(6,4,8,3,5,7,9);
-        Assertions.assertThat(bst.asListBreadthFirst2()).containsExactly(6,4,8,3,5,7,9);
-        Assertions.assertThat(bst.asListBreadthFirstRec()).containsExactly(6,4,8,3,5,7,9);
+        Assertions.assertThat(bst.asListBreadthFirstByLevelIter()).containsExactly(6,4,8,3,5,7,9);
+        Assertions.assertThat(bst.asListBreadthFirstByLevelRec()).containsExactly(6,4,8,3,5,7,9);
 
     }
 

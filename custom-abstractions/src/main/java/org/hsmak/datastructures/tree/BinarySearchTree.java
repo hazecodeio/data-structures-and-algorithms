@@ -177,7 +177,8 @@ class BinarySearchTree<E extends Comparable<E>> {
         }
     }
 
-    public void traverseBreadthFirst2(Node root, Consumer<E> c) {
+
+    public void traverseBreadthFirstByLevelIter(Node root, Consumer<E> c) {
         LinkedList<Node> levelQ = new LinkedList<>();
         LinkedList<Node> childrenQ = new LinkedList<>();
         levelQ.addFirst(root);
@@ -198,13 +199,13 @@ class BinarySearchTree<E extends Comparable<E>> {
         }
     }
 
-    void traverseBreadthFirstRec(Node root, Consumer<E> c) {
+    void traverseBreadthFirstByLevelRec(Node root, Consumer<E> c) {
         LinkedList<Node> q = new LinkedList<>();
         q.addFirst(root);
-        rec(q, c);
+        breadthFirstByLevelRecHelper(q, c);
     }
 
-    private void rec(LinkedList<Node> q, Consumer<E> c) {
+    private void breadthFirstByLevelRecHelper(LinkedList<Node> q, Consumer<E> c) {
         if (q.isEmpty())
             return;
 
@@ -218,7 +219,7 @@ class BinarySearchTree<E extends Comparable<E>> {
             if (n.right != null)
                 nextQ.addFirst(n.right);
         }
-        rec(nextQ, c);
+        breadthFirstByLevelRecHelper(nextQ, c);
     }
 
 
@@ -232,15 +233,15 @@ class BinarySearchTree<E extends Comparable<E>> {
         return l;
     }
 
-    public List<E> asListBreadthFirst2() {
+    public List<E> asListBreadthFirstByLevelIter() {
         List<E> l = new ArrayList<>();
-        traverseBreadthFirst2(root, l::add);
+        traverseBreadthFirstByLevelIter(root, l::add);
         return l;
     }
 
-    public List<E> asListBreadthFirstRec() {
+    public List<E> asListBreadthFirstByLevelRec() {
         List<E> l = new ArrayList<>();
-        traverseBreadthFirstRec(root, l::add);
+        traverseBreadthFirstByLevelRec(root, l::add);
         return l;
     }
     //////////////////////
