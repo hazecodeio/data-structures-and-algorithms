@@ -132,6 +132,35 @@ public class AdjacencyMapGraph<V> {
         return visited;
     }
 
+    //ToDo - to be tested
+    public boolean hasPathViaDFRec(V src, V dst) {// assuming there's no cycle in the graph
+        if (src.equals(dst))
+            return true;
+
+        List<Vertex> neighbors = adjMap.get(src);
+        for (Vertex v : neighbors) {
+            if (hasPathViaDFRec(v.val, dst) == true)
+                return true;
+        }
+
+        return false;
+    }
+
+    //ToDo - to be tested
+    public boolean hasPathViaBFIter(V src, V dst) {// assuming there's no cycle in the graph
+        Queue<V> q = new LinkedList<>();
+        q.add(src);
+        while (!q.isEmpty()) {
+            V current = q.remove();
+            if (current == dst)
+                return true;
+            for (Vertex v : adjMap.get(current)) {
+                q.add(v.val);
+            }
+        }
+        return false;
+    }
+
     class Vertex {
         V val;
 
