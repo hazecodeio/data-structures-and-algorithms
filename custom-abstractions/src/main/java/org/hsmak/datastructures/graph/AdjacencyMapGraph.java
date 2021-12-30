@@ -80,7 +80,7 @@ public class AdjacencyMapGraph<V> {
             edgesOfV2.remove(ver1);
     }
 
-    List<Vertex> getAdjVertices(V val) {
+    List<Vertex> getNeighbors(V val) {
         return adjMap.get(new Vertex(val));
     }
 
@@ -104,7 +104,7 @@ public class AdjacencyMapGraph<V> {
             if (!visited.contains(val)) {
                 visited.add(val);
                 c.accept(val);
-                for (Vertex v : getAdjVertices(val)) {
+                for (Vertex v : getNeighbors(val)) {
                     stack.push(v.val);
                 }
             }
@@ -121,7 +121,7 @@ public class AdjacencyMapGraph<V> {
         c.accept(root);
         while (!queue.isEmpty()) {
             V val = queue.poll();
-            for (Vertex ver : getAdjVertices(val)) {
+            for (Vertex ver : getNeighbors(val)) {
                 if (!visited.contains(ver.val)) {
                     visited.add(ver.val);
                     c.accept(ver.val);
