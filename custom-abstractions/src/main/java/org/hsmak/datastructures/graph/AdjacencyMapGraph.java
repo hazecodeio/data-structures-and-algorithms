@@ -16,6 +16,11 @@ public class AdjacencyMapGraph<V> {
         this.adjMap = new HashMap<>();
     }
 
+    //ToDo - Build an adjacent list from and edge list
+    AdjacencyMapGraph(List<V[]> edgeList){
+
+    }
+
     public static void main(String[] args) {
 
         AdjacencyMapGraph<String> graph = new AdjacencyMapGraph<>();
