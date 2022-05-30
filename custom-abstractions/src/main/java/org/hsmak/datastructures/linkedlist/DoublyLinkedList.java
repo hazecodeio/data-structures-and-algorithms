@@ -106,11 +106,11 @@ public class DoublyLinkedList<E> {
         return e;
     }
 
-    public E get(E e) {
+    public Node getNodeReference(E e) {
 
         for (Node n = head; n != null; n = n.next) {
             if (n.e.equals(e))
-                return n.e;
+                return n;
         }
         return null;//In FP this should be Option[Nothing]
     }
