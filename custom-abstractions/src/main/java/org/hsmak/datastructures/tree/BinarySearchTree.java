@@ -78,12 +78,15 @@ class BinarySearchTree<E extends Comparable<E>> {
         return current.left == null ? current.value : findSmallestValue(current.left);
     }
 
-    public int height(Node root) {
-        if (root == null)
+    public int height(){
+        return heightRecursive(root);
+    }
+    private int heightRecursive(Node current) {
+        if (current == null)
             return -1;
 
-        int left = 1 + height(root.left);
-        int right = 1 + height(root.right);
+        int left = 1 + heightRecursive(current.left);
+        int right = 1 + heightRecursive(current.right);
 
         return Integer.max(left, right);
     }
