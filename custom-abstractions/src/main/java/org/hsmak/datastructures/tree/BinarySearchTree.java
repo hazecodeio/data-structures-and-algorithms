@@ -203,26 +203,26 @@ class BinarySearchTree<E extends Comparable<E>> {
     }
 
     void traverseBreadthFirstByLevelRec(Node root, Consumer<E> c) {
-        LinkedList<Node> q = new LinkedList<>();
-        q.addFirst(root);
-        breadthFirstByLevelRecHelper(q, c);
+        LinkedList<Node> currentLevelQ = new LinkedList<>();
+        currentLevelQ.addFirst(root);
+        breadthFirstByLevelRecHelper(currentLevelQ, c);
     }
 
-    private void breadthFirstByLevelRecHelper(LinkedList<Node> q, Consumer<E> c) {
-        if (q.isEmpty())
+    private void breadthFirstByLevelRecHelper(LinkedList<Node> currentLevelQ, Consumer<E> c) {
+        if (currentLevelQ.isEmpty())
             return;
 
-        LinkedList<Node> nextQ = new LinkedList<>();
+        LinkedList<Node> nextLevelQ = new LinkedList<>();
 
-        while (!q.isEmpty()) {
-            Node n = q.removeLast();
+        while (!currentLevelQ.isEmpty()) {
+            Node n = currentLevelQ.removeLast();
             c.accept(n.value);
             if (n.left != null)
-                nextQ.addFirst(n.left);
+                nextLevelQ.addFirst(n.left);
             if (n.right != null)
-                nextQ.addFirst(n.right);
+                nextLevelQ.addFirst(n.right);
         }
-        breadthFirstByLevelRecHelper(nextQ, c);
+        breadthFirstByLevelRecHelper(nextLevelQ, c);
     }
 
 
