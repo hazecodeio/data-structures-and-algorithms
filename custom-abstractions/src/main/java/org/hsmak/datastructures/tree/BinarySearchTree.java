@@ -78,9 +78,10 @@ class BinarySearchTree<E extends Comparable<E>> {
         return current.left == null ? current.value : findSmallestValue(current.left);
     }
 
-    public int height(){
+    public int height() {
         return heightRecursive(root);
     }
+
     private int heightRecursive(Node current) {
         if (current == null)
             return -1;
@@ -95,28 +96,28 @@ class BinarySearchTree<E extends Comparable<E>> {
      * ********* Convert to DoublyLinkedList *********
      * ***********************************************/
 
-    public void flattenToDoublyLinkedList(){
+    public void flattenToDoublyLinkedList() {
         helpFlatten(root);
     }
 
     private void helpFlatten(Node current) {
-        if(current == null){
+        if (current == null) {
             return;
         }
         helpFlatten(current.left);
         helpFlatten(current.right);
         //checking if root's left child exist. if does not exist we will move forward without any changes.
 
-        if(current.left!=null){
+        if (current.left != null) {
             //if right child does not exist we will simply change left child to right child
-            if(current.right==null){
+            if (current.right == null) {
                 current.right = current.left;
                 current.left = null;
                 return;
             }
             //if exist we will traverse to the end of the left child linkedlist and connect it to the right child linkedlist
             Node temp = current.left;
-            while(temp.right!=null){
+            while (temp.right != null) {
                 temp = temp.right;
             }
             temp.right = current.right;
@@ -125,10 +126,10 @@ class BinarySearchTree<E extends Comparable<E>> {
         }
     }
 
-    public List<E> asListDLL(){
+    public List<E> asListDLL() {
         List<E> l = new ArrayList<>();
 
-        for(Node head = root; head != null; head = head.right)
+        for (Node head = root; head != null; head = head.right)
             l.add(head.value);
 
         return l;
@@ -136,22 +137,22 @@ class BinarySearchTree<E extends Comparable<E>> {
 
     public void flatten2(Node root) {
 
-        if(root == null)
+        if (root == null)
             return;
 
         Stack<Node> stack = new Stack<>();
         stack.push(root);
-        Node current = root , prev = null;
+        Node current = root, prev = null;
 
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
 
             current = stack.pop();
-            if(prev != null)
+            if (prev != null)
                 prev.right = current;
 
-            if(current.right != null)
+            if (current.right != null)
                 stack.push(current.right);
-            if(current.left != null)
+            if (current.left != null)
                 stack.push(current.left);
 
             current.left = null;
@@ -252,27 +253,30 @@ class BinarySearchTree<E extends Comparable<E>> {
     // First Depth Traversal - Recursive
 
     public void traverseInOrder(Node node, Consumer<E> c) {
-        if (node != null) {
-            traverseInOrder(node.left, c);
-            c.accept(node.value);
-            traverseInOrder(node.right, c);
-        }
+        if (node == null)
+            return;
+
+        traverseInOrder(node.left, c);
+        c.accept(node.value);
+        traverseInOrder(node.right, c);
     }
 
     public void traversePreOrder(Node node, Consumer<E> c) {
-        if (node != null) {
-            c.accept(node.value);
-            traversePreOrder(node.left, c);
-            traversePreOrder(node.right, c);
-        }
+        if (node == null)
+            return;
+
+        c.accept(node.value);
+        traversePreOrder(node.left, c);
+        traversePreOrder(node.right, c);
     }
 
     public void traversePostOrder(Node node, Consumer<E> c) {
-        if (node != null) {
-            traversePostOrder(node.left, c);
-            traversePostOrder(node.right, c);
-            c.accept(node.value);
-        }
+        if (node == null)
+            return;
+
+        traversePostOrder(node.left, c);
+        traversePostOrder(node.right, c);
+        c.accept(node.value);
     }
 
     public void forEachInOrder(Consumer<E> c) {
