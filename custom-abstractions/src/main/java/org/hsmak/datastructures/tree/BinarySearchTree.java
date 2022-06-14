@@ -67,15 +67,27 @@ class BinarySearchTree<E extends Comparable<E>> {
             }
 
             // Case 3: 2 children
-            E smallestValue = findSmallestValue(current.right);
-            current.value = smallestValue;
-            current.right = deleteRecursive(current.right, smallestValue);
+            E minValueOfRightSubtree = findMin(current.right);
+            current.value = minValueOfRightSubtree;
+            current.right = deleteRecursive(current.right, minValueOfRightSubtree);
+
+            /*
+             * Alternatively, replacing with the max of the left subtree would work as well. However,
+             * PreOrder & PostOrder traversal will differ (as expected), and InOrder would be the same.
+             */
+            /*E maxValueOfLeftSubtree = findMax(current.left);
+            current.value = maxValueOfLeftSubtree;
+            current.left = deleteRecursive(current.left, maxValueOfLeftSubtree);*/
         }
         return current;
     }
 
-    private E findSmallestValue(Node current) {
-        return current.left == null ? current.value : findSmallestValue(current.left);
+    private E findMin(Node current) {
+        return current.left == null ? current.value : findMin(current.left);
+    }
+
+    private E findMax(Node node) {
+        return node.right == null ? node.value : findMin(node.right);
     }
 
     public int height() {
