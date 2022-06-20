@@ -67,7 +67,7 @@ class BinarySearchTree<E extends Comparable<E>> {
             }
 
             // Case 3: 2 children
-            E minValueOfRightSubtree = findMin(current.right);
+            E minValueOfRightSubtree = findMinNode(current.right).value;
             current.value = minValueOfRightSubtree;
             current.right = deleteRecursive(current.right, minValueOfRightSubtree);
 
@@ -75,19 +75,23 @@ class BinarySearchTree<E extends Comparable<E>> {
              * Alternatively, replacing with the max of the left subtree would work as well. However,
              * PreOrder & PostOrder traversal will differ (as expected), and InOrder would be the same.
              */
-            /*E maxValueOfLeftSubtree = findMax(current.left);
+            /*E maxValueOfLeftSubtree = findMaxNode(current.left).value;
             current.value = maxValueOfLeftSubtree;
             current.left = deleteRecursive(current.left, maxValueOfLeftSubtree);*/
         }
         return current;
     }
 
-    private E findMin(Node current) {
-        return current.left == null ? current.value : findMin(current.left);
+    private Node findMinNode(Node subtree) {
+        if (subtree == null)
+            return null;
+        return subtree.left == null ? subtree : findMinNode(subtree.left);
     }
 
-    private E findMax(Node node) {
-        return node.right == null ? node.value : findMin(node.right);
+    private Node findMaxNode(Node subtree) {
+        if (subtree == null)
+            return null;
+        return subtree.right == null ? subtree : findMaxNode(subtree.right);
     }
 
     public int height() {
@@ -108,37 +112,45 @@ class BinarySearchTree<E extends Comparable<E>> {
      * ********* Convert to DoublyLinkedList *********
      * ***********************************************/
 
-    public void flattenToDoublyLinkedList() {
-        helpFlatten(root);
+    public void flattenToSinglyLinkedListPreOrderRec() {
+        helpFlattenPreOrderRec(root);
     }
 
-    private void helpFlatten(Node current) {
+    // ToDo - revisit since this might be flatten into a SinglyLinkedList
+    public void flattenToDoublyLinkedListIter() {
+        helpFlattenIter(root);
+    }
+
+    private void helpFlattenPreOrderRec(Node current) {
         if (current == null) {
             return;
         }
-        helpFlatten(current.left);
-        helpFlatten(current.right);
-        //checking if root's left child exist. if does not exist we will move forward without any changes.
+        helpFlattenPreOrderRec(current.left);
+        helpFlattenPreOrderRec(current.right);
 
+        //checking if current's left child exist. If it does not exist we will move forward without any changes.
         if (current.left != null) {
-            //if right child does not exist we will simply change left child to right child
+            //If right child does not exist we will simply change left child to right child
             if (current.right == null) {
                 current.right = current.left;
                 current.left = null;
                 return;
             }
-            //if exist we will traverse to the end of the left child linkedlist and connect it to the right child linkedlist
-            Node temp = current.left;
-            while (temp.right != null) {
-                temp = temp.right;
-            }
-            temp.right = current.right;
+
+            //If exists we will traverse to the end of the left child LinkedList and connect it to the right child LinkedList
+            /*Node maxOfCurrentSubtree = current.left;
+            while (maxOfCurrentSubtree.right != null) {
+                maxOfCurrentSubtree = maxOfCurrentSubtree.right;
+            }*/
+            Node maxOfCurrentSubtree = findMaxNode(current.left);
+
+            maxOfCurrentSubtree.right = current.right;
             current.right = current.left;
             current.left = null;
         }
     }
 
-    public List<E> asListDLL() {
+    public List<E> rightSubtreesAsList() {
         List<E> l = new ArrayList<>();
 
         for (Node head = root; head != null; head = head.right)
@@ -147,7 +159,17 @@ class BinarySearchTree<E extends Comparable<E>> {
         return l;
     }
 
-    public void flatten2(Node root) {
+    public List<E> leftSubtreesAsList() {
+        List<E> l = new ArrayList<>();
+
+        for (Node head = root; head != null; head = head.left)
+            l.add(head.value);
+
+        return l;
+    }
+
+    // ToDo - revisit since this might be flatten into a SinglyLinkedList
+    public void helpFlattenIter(Node root) {
 
         if (root == null)
             return;
@@ -170,6 +192,60 @@ class BinarySearchTree<E extends Comparable<E>> {
             current.left = null;
             prev = current;
         }
+    }
+
+    public void ddlInOrder() {
+        helpDDLInOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
+    }
+
+    private void helpDDLInOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
+        if (current == null)
+            return;
+
+        BinarySearchTree<E> left = new BinarySearchTree<>();
+        left.root = current.left;
+        BinarySearchTree<E> right = new BinarySearchTree<>();
+        right.root = current.right;
+
+        helpDDLInOrder(left.root, head, prv);
+
+        if (head.root == null) {
+            head.root = current;
+        } else {
+            current.left = prv.root;
+            prv.root.right = current;
+        }
+
+        prv.root = current;
+
+        helpDDLInOrder(right.root, head, prv);
+    }
+
+    public void ddlPreOrder() {
+        helpDDLPreOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
+    }
+
+    private void helpDDLPreOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
+        if (current == null)
+            return;
+
+        BinarySearchTree<E> left = new BinarySearchTree<>();
+        left.root = current.left;
+        BinarySearchTree<E> right = new BinarySearchTree<>();
+        right.root = current.right;
+
+        if (head.root == null) {
+            current.left = null;
+            head.root = current;
+        } else {
+            current.left = prv.root;
+            prv.root.right = current;
+        }
+
+        prv.root = current;
+
+        helpDDLPreOrder(left.root, head, prv);
+        helpDDLPreOrder(right.root, head, prv);
     }
 
     /* *****************************

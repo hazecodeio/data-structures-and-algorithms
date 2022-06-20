@@ -82,10 +82,67 @@ public class BinarySearchTreeTest {
     }
 
     @Test
-    public void testConvertingBinaryTreeToDoublyLinkedList(){
+    public void testConvertingBinaryTreeToSinglyLinkedListRec(){
+        System.out.println("asListPreOrder: " + bst.asListPreOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListInOrder: " + bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListPostOrder: " + bst.asListPostOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+
+        System.out.println("---");
+        bst.flattenToSinglyLinkedListPreOrderRec();
+        System.out.println("rightSubtreesAsList: " + bst.rightSubtreesAsList().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+
+        System.out.println("asListPreOrder: " + bst.asListPreOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListInOrder: " + bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListPostOrder: " + bst.asListPostOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+    }
+
+    @Test
+    public void testConvertingBinaryTreeToDoublyLinkedListIter(){ // ToDo - revisit since this might be flatten into a SinglyLinkedList
         System.out.println(bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
-        bst.flattenToDoublyLinkedList();
-        System.out.println(bst.asListDLL().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        bst.flattenToDoublyLinkedListIter();
+        System.out.println(bst.rightSubtreesAsList().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+
+        System.out.println("asListPreOrder: " + bst.asListPreOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListInOrder: " + bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListPostOrder: " + bst.asListPostOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+    }
+
+
+
+
+
+    @Test
+    public void testDDLInOrderRec(){
+        System.out.println("asListPreOrder: " + bst.asListPreOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListInOrder: " + bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListPostOrder: " + bst.asListPostOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+
+        System.out.println("---");
+        bst.ddlInOrder();
+        System.out.println("rightSubtreesAsList: " + bst.rightSubtreesAsList().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("leftSubtreesAsList: " + bst.leftSubtreesAsList().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("---");
+
+//        System.out.println("asListPreOrder: " + bst.asListPreOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+//        System.out.println("asListInOrder: " + bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+//        System.out.println("asListPostOrder: " + bst.asListPostOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+    }
+
+    @Test
+    public void testDDLPreOrderRec(){
+        System.out.println("asListPreOrder: " + bst.asListPreOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListInOrder: " + bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("asListPostOrder: " + bst.asListPostOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+
+        System.out.println("---");
+        bst.ddlPreOrder();
+        System.out.println("rightSubtreesAsList: " + bst.rightSubtreesAsList().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("leftSubtreesAsList: " + bst.leftSubtreesAsList().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+        System.out.println("---");
+
+//        System.out.println("asListPreOrder: " + bst.asListPreOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+//        System.out.println("asListInOrder: " + bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+//        System.out.println("asListPostOrder: " + bst.asListPostOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
     }
 
 }
