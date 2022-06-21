@@ -194,11 +194,11 @@ class BinarySearchTree<E extends Comparable<E>> {
         }
     }
 
-    public void ddlInOrder() {
-        helpDDLInOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
+    public void toDoublyLinkedListInOrder() {
+        helpDLLInOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
     }
 
-    private void helpDDLInOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
+    private void helpDLLInOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
         if (current == null)
             return;
 
@@ -207,7 +207,7 @@ class BinarySearchTree<E extends Comparable<E>> {
         BinarySearchTree<E> right = new BinarySearchTree<>();
         right.root = current.right;
 
-        helpDDLInOrder(left.root, head, prv);
+        helpDLLInOrder(left.root, head, prv);
 
         if (head.root == null) {
             head.root = current;
@@ -218,14 +218,14 @@ class BinarySearchTree<E extends Comparable<E>> {
 
         prv.root = current;
 
-        helpDDLInOrder(right.root, head, prv);
+        helpDLLInOrder(right.root, head, prv);
     }
 
-    public void ddlPreOrder() {
-        helpDDLPreOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
+    public void toDoublyLinkedListPreOrder() {
+        helpDLLPreOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
     }
 
-    private void helpDDLPreOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
+    private void helpDLLPreOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
         if (current == null)
             return;
 
@@ -244,8 +244,37 @@ class BinarySearchTree<E extends Comparable<E>> {
 
         prv.root = current;
 
-        helpDDLPreOrder(left.root, head, prv);
-        helpDDLPreOrder(right.root, head, prv);
+        helpDLLPreOrder(left.root, head, prv);
+        helpDLLPreOrder(right.root, head, prv);
+    }
+
+    //ToDo
+    public void toDoublyLinkedListPostOrder() {
+        helpDLLPostOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
+    }
+
+    //ToDo
+    private void helpDLLPostOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
+        if (current == null)
+            return;
+
+        /*BinarySearchTree<E> left = new BinarySearchTree<>();
+        left.root = current.left;
+        BinarySearchTree<E> right = new BinarySearchTree<>();
+        right.root = current.right;
+
+        if (head.root == null) {
+            current.left = null;
+            head.root = current;
+        } else {
+            current.left = prv.root;
+            prv.root.right = current;
+        }
+
+        prv.root = current;
+
+        helpDDLPostOrder(left.root, head, prv);
+        helpDDLPostOrder(right.root, head, prv);*/
     }
 
     /* *****************************
