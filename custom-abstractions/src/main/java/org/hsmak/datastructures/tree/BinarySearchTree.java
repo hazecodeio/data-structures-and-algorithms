@@ -112,45 +112,12 @@ class BinarySearchTree<E extends Comparable<E>> {
      * ********* Convert to DoublyLinkedList *********
      * ***********************************************/
 
-    public void flattenToSinglyLinkedListPreOrderRec() {
-        helpFlattenPreOrderRec(root);
-    }
-
     // ToDo - revisit since this might be flatten into a SinglyLinkedList
-    public void flattenToDoublyLinkedListIter() {
+    public void toSinglyLinkedListIter() {
         helpFlattenIter(root);
     }
 
-    private void helpFlattenPreOrderRec(Node current) {
-        if (current == null) {
-            return;
-        }
-        helpFlattenPreOrderRec(current.left);
-        helpFlattenPreOrderRec(current.right);
-
-        //checking if current's left child exist. If it does not exist we will move forward without any changes.
-        if (current.left != null) {
-            //If right child does not exist we will simply change left child to right child
-            if (current.right == null) {
-                current.right = current.left;
-                current.left = null;
-                return;
-            }
-
-            //If exists we will traverse to the end of the left child LinkedList and connect it to the right child LinkedList
-            /*Node maxOfCurrentSubtree = current.left;
-            while (maxOfCurrentSubtree.right != null) {
-                maxOfCurrentSubtree = maxOfCurrentSubtree.right;
-            }*/
-            Node maxOfCurrentSubtree = findMaxNode(current.left);
-
-            maxOfCurrentSubtree.right = current.right;
-            current.right = current.left;
-            current.left = null;
-        }
-    }
-
-    public List<E> rightSubtreesAsList() {
+    List<E> rightSubtreesAsList() {
         List<E> l = new ArrayList<>();
 
         for (Node head = root; head != null; head = head.right)
@@ -159,7 +126,7 @@ class BinarySearchTree<E extends Comparable<E>> {
         return l;
     }
 
-    public List<E> leftSubtreesAsList() {
+    List<E> leftSubtreesAsList() {
         List<E> l = new ArrayList<>();
 
         for (Node head = root; head != null; head = head.left)
@@ -195,19 +162,22 @@ class BinarySearchTree<E extends Comparable<E>> {
     }
 
     public void toDoublyLinkedListInOrder() {
-        helpDLLInOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
+        toDLLInOrderHelper(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
     }
 
-    private void helpDLLInOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
+    private void toDLLInOrderHelper(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
         if (current == null)
             return;
 
+
         BinarySearchTree<E> left = new BinarySearchTree<>();
         left.root = current.left;
+        current.left = null;
         BinarySearchTree<E> right = new BinarySearchTree<>();
         right.root = current.right;
+        current.right = null;
 
-        helpDLLInOrder(left.root, head, prv);
+        toDLLInOrderHelper(left.root, head, prv);
 
         if (head.root == null) {
             head.root = current;
@@ -218,24 +188,87 @@ class BinarySearchTree<E extends Comparable<E>> {
 
         prv.root = current;
 
-        helpDLLInOrder(right.root, head, prv);
+        toDLLInOrderHelper(right.root, head, prv);
+    }
+
+    public void toDoublyLinkedListInOrderReversed() {
+        toDLLInOrderReversedHelper(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
+    }
+
+    private void toDLLInOrderReversedHelper(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
+        if (current == null)
+            return;
+
+        BinarySearchTree<E> right = new BinarySearchTree<>();
+        right.root = current.right;
+        current.right = null;
+
+        BinarySearchTree<E> left = new BinarySearchTree<>();
+        left.root = current.left;
+        current.left = null;
+
+        toDLLInOrderReversedHelper(right.root, head, prv);
+
+        if (head.root == null) {
+            head.root = current;
+        } else {
+            current.left = prv.root;
+            prv.root.right = current;
+        }
+
+        prv.root = current;
+
+        toDLLInOrderReversedHelper(left.root, head, prv);
     }
 
     public void toDoublyLinkedListPreOrder() {
-        helpDLLPreOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
+        toDLLPreOrderHelper(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
     }
 
-    private void helpDLLPreOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
+    private void toDLLPreOrderHelper(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
+        if (current == null)
+            return;
+
+
+        BinarySearchTree<E> left = new BinarySearchTree<>();
+        left.root = current.left;
+        current.left = null;
+        BinarySearchTree<E> right = new BinarySearchTree<>();
+        right.root = current.right;
+        current.right = null;
+
+        if (head.root == null) {
+            head.root = current;
+        } else {
+            current.left = prv.root;
+            prv.root.right = current;
+        }
+
+        prv.root = current;
+
+        toDLLPreOrderHelper(left.root, head, prv);
+        toDLLPreOrderHelper(right.root, head, prv);
+    }
+
+    public void toDoublyLinkedListPostOrder() {
+        toDLLPostOrderHelper(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
+    }
+
+    private void toDLLPostOrderHelper(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
         if (current == null)
             return;
 
         BinarySearchTree<E> left = new BinarySearchTree<>();
         left.root = current.left;
+        current.left = null;
         BinarySearchTree<E> right = new BinarySearchTree<>();
         right.root = current.right;
+        current.right = null;
+
+        toDLLPostOrderHelper(left.root, head, prv);
+        toDLLPostOrderHelper(right.root, head, prv);
 
         if (head.root == null) {
-            current.left = null;
             head.root = current;
         } else {
             current.left = prv.root;
@@ -243,38 +276,6 @@ class BinarySearchTree<E extends Comparable<E>> {
         }
 
         prv.root = current;
-
-        helpDLLPreOrder(left.root, head, prv);
-        helpDLLPreOrder(right.root, head, prv);
-    }
-
-    //ToDo
-    public void toDoublyLinkedListPostOrder() {
-        helpDLLPostOrder(root, new BinarySearchTree<E>(), new BinarySearchTree<E>());
-    }
-
-    //ToDo
-    private void helpDLLPostOrder(Node current, BinarySearchTree<E> head, BinarySearchTree<E> prv) {
-        if (current == null)
-            return;
-
-        /*BinarySearchTree<E> left = new BinarySearchTree<>();
-        left.root = current.left;
-        BinarySearchTree<E> right = new BinarySearchTree<>();
-        right.root = current.right;
-
-        if (head.root == null) {
-            current.left = null;
-            head.root = current;
-        } else {
-            current.left = prv.root;
-            prv.root.right = current;
-        }
-
-        prv.root = current;
-
-        helpDDLPostOrder(left.root, head, prv);
-        helpDDLPostOrder(right.root, head, prv);*/
     }
 
     /* *****************************
