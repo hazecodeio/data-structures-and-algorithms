@@ -117,24 +117,6 @@ class BinarySearchTree<E extends Comparable<E>> {
         helpFlattenIter(root);
     }
 
-    List<E> rightSubtreesAsList() {
-        List<E> l = new ArrayList<>();
-
-        for (Node head = root; head != null; head = head.right)
-            l.add(head.value);
-
-        return l;
-    }
-
-    List<E> leftSubtreesAsList() {
-        List<E> l = new ArrayList<>();
-
-        for (Node head = root; head != null; head = head.left)
-            l.add(head.value);
-
-        return l;
-    }
-
     // ToDo - revisit since this might be flatten into a SinglyLinkedList
     public void helpFlattenIter(Node root) {
 
@@ -594,6 +576,24 @@ class BinarySearchTree<E extends Comparable<E>> {
 
             return val;
         }
+    }
+
+    List<E> rightSubtreesAsList() {
+        List<E> l = new ArrayList<>();
+
+        for (Node head = root; head != null; head = head.right)
+            l.add(head.value);
+
+        return l;
+    }
+
+    List<E> leftSubtreesAsList() {
+        List<E> l = new ArrayList<>();
+
+        for (Node head = root; head != null; head = head.left)
+            l.add(head.value);
+
+        return l;
     }
 
     class Node {
