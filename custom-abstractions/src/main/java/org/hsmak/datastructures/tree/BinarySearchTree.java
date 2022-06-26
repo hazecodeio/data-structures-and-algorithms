@@ -456,7 +456,7 @@ class BinarySearchTree<E extends Comparable<E>> {
             boolean currentHasChild = (current.left != null || current.right != null);
             boolean lastPoppedIsChildOfCurrent = (lastPopped == current.right || lastPopped == current.left);
 
-            if (!currentHasChild || lastPoppedIsChildOfCurrent) { // Only pop when it's a leaf node
+            if (!currentHasChild || lastPoppedIsChildOfCurrent) { // Only pop when it's a leaf node or its children has already been popped
                 current = stack.pop();
                 c.accept(current.value);
                 lastPopped = current;
