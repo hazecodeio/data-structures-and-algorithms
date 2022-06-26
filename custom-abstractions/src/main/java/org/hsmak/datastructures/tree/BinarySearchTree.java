@@ -448,18 +448,18 @@ class BinarySearchTree<E extends Comparable<E>> {
 
     public void traversePostOrderIterative(Consumer<E> c) {
         Stack<Node> stack = new Stack<>();
-        Node prev = root;
+        Node lastPopped = root;
         stack.push(root);
 
         while (!stack.isEmpty()) {
             Node current = stack.peek();
-            boolean hasChild = (current.left != null || current.right != null);
-            boolean isPrevLastChild = (prev == current.right || (prev == current.left && current.right == null));
+            boolean currentHasChild = (current.left != null || current.right != null);
+            boolean lastPoppedIsChildOfCurrent = (lastPopped == current.right || lastPopped == current.left);
 
-            if (!hasChild || isPrevLastChild) {
+            if (!currentHasChild || lastPoppedIsChildOfCurrent) { // Only pop when it's a leaf node
                 current = stack.pop();
                 c.accept(current.value);
-                prev = current;
+                lastPopped = current;
             } else {
                 if (current.right != null) {
                     stack.push(current.right);
