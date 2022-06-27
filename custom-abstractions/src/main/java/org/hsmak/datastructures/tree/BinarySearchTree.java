@@ -498,17 +498,20 @@ class BinarySearchTree<E extends Comparable<E>> {
         return new InOrderIterator(root);
     }
 
+    public Iterator<E> preOrderIterator() {
+        return new PreOrderIterator(root);
+    }
+
+    public Iterator<E> postOrderIterator() {
+        return new PostOrderIterator(root);
+    }
+
     public List<E> asListInOrderViaIterator() {
         List<E> l = new ArrayList<>();
         InOrderIterator it = new InOrderIterator(root);
         while (it.hasNext())
             l.add(it.next());
         return l;
-    }
-
-    /////
-    public Iterator<E> iterator() {
-        return new PreOrderIterator(root);
     }
 
     public List<E> asListPreOrderViaIterator() {
@@ -519,6 +522,13 @@ class BinarySearchTree<E extends Comparable<E>> {
         return l;
     }
 
+    public List<E> asListPostOrderViaIterator() {
+        List<E> l = new ArrayList<>();
+        PostOrderIterator it = new PostOrderIterator(root);
+        while (it.hasNext())
+            l.add(it.next());
+        return l;
+    }
     class InOrderIterator implements Iterator<E> {
         Stack<Node> stack;
         Node current;
@@ -577,6 +587,50 @@ class BinarySearchTree<E extends Comparable<E>> {
                 stack.push(current.left);
 
             return val;
+        }
+    }
+
+    class PostOrderIterator implements Iterator<E> {
+        Stack<Node> stack;
+        Node current;
+
+        Node lastPopped;
+
+        PostOrderIterator(Node current) {
+            this.current = current;
+            this.lastPopped = current;
+
+            stack = new Stack<>();
+            stack.push(current);
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        @Override
+        public E next() {
+
+            while(true) {
+                Node current = stack.peek();
+
+                boolean isCurrentALeafNode = (current.left == null && current.right == null);
+                boolean isLastPoppedAChildOfCurrent = (lastPopped == current.right || lastPopped == current.left);
+
+                if (isCurrentALeafNode || isLastPoppedAChildOfCurrent) { // Only pop when it's a leaf node or lastPopped is one of its children
+                    lastPopped = stack.pop();
+                    E val = lastPopped.value;
+                    return val;
+                }
+
+                if (current.right != null) {
+                    stack.push(current.right);
+                }
+                if (current.left != null) {
+                    stack.push(current.left);
+                }
+            }
         }
     }
 

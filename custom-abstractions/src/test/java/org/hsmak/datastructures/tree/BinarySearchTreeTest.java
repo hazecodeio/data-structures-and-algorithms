@@ -3,6 +3,7 @@ package org.hsmak.datastructures.tree;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class BinarySearchTreeTest {
@@ -11,50 +12,34 @@ public class BinarySearchTreeTest {
 
     public BinarySearchTreeTest() {
         bst = new BinarySearchTree<>();
-        bst.add(6);
-        bst.add(4);
-        bst.add(8);
-        bst.add(3);
-        bst.add(5);
-        bst.add(7);
-        bst.add(9);
+        List<Integer> l1 = List.of(6,4,8,3,5,7,9);
+//        l1.stream().forEach(bst::add);
 
-//        bst.add(1);
-//        bst.add(0);
-//        bst.add(3);
-//        bst.add(2);
-//        bst.add(5);
-//        bst.add(4);
-//        bst.add(7);
-//        bst.add(6);
+        List<Integer> l2 = List.of(1,0,3,2,5,4,7,6);
+//        l2.stream().forEach(bst::add);
 
-//        bst.add(7);
-//        bst.add(0);
-//        bst.add(3);
-//        bst.add(2);
-//        bst.add(1);
-//        bst.add(6);
-//        bst.add(5);
-//        bst.add(4);
+        List<Integer> l3 = List.of(7,0,3,2,1,6,5,4);
+//        l3.stream().forEach(bst::add);
+
     }
 
     @Test
     public void testTraversalInOrder() {
         System.out.println(bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
-//        Assertions.assertThat(bst.asListInOrder()).containsExactly(3, 4, 5, 6, 7, 8, 9);
-//        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(3, 4, 5, 6, 7, 8, 9);
-//        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(3, 4, 5, 6, 7, 8, 9);
-//
-//
-//        bst.delete(3);
-//        Assertions.assertThat(bst.asListInOrder()).containsExactly(4, 5, 6, 7, 8, 9);
-//        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(4, 5, 6, 7, 8, 9);
-//        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(4, 5, 6, 7, 8, 9);
-//
-//        bst.delete(6);
-//        Assertions.assertThat(bst.asListInOrder()).containsExactly(4, 5, 7, 8, 9);
-//        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(4, 5, 7, 8, 9);
-//        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(4, 5, 7, 8, 9);
+        Assertions.assertThat(bst.asListInOrder()).containsExactly(3, 4, 5, 6, 7, 8, 9);
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(3, 4, 5, 6, 7, 8, 9);
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(3, 4, 5, 6, 7, 8, 9);
+
+
+        bst.delete(3);
+        Assertions.assertThat(bst.asListInOrder()).containsExactly(4, 5, 6, 7, 8, 9);
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(4, 5, 6, 7, 8, 9);
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(4, 5, 6, 7, 8, 9);
+
+        bst.delete(6);
+        Assertions.assertThat(bst.asListInOrder()).containsExactly(4, 5, 7, 8, 9);
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(4, 5, 7, 8, 9);
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(4, 5, 7, 8, 9);
     }
 
     @Test
@@ -64,32 +49,35 @@ public class BinarySearchTreeTest {
 
         Assertions.assertThat(bst.asListPostOrder()).containsExactly(3, 5, 4, 7, 9, 8, 6);
         Assertions.assertThat(bst.asListPostOrderItr()).containsExactly(3, 5, 4, 7, 9, 8, 6);
+        Assertions.assertThat(bst.asListPostOrderViaIterator()).containsExactly(3, 5, 4, 7, 9, 8, 6);
 
         bst.delete(3);
         Assertions.assertThat(bst.asListPostOrder()).containsExactly(5, 4, 7, 9, 8, 6);
         Assertions.assertThat(bst.asListPostOrderItr()).containsExactly(5, 4, 7, 9, 8, 6);
+        Assertions.assertThat(bst.asListPostOrderViaIterator()).containsExactly(5, 4, 7, 9, 8, 6);
 
         bst.delete(6);
         Assertions.assertThat(bst.asListPostOrder()).containsExactly(5, 4, 9, 8, 7);
         Assertions.assertThat(bst.asListPostOrderItr()).containsExactly(5, 4, 9, 8, 7);
+        Assertions.assertThat(bst.asListPostOrderViaIterator()).containsExactly(5, 4, 9, 8, 7);
     }
 
     @Test
     public void testTraversalPreOrder() {
         System.out.println(bst.asListPreOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
-//        Assertions.assertThat(bst.asListPreOrder()).containsExactly(6, 4, 3, 5, 8, 7, 9);
-//        Assertions.assertThat(bst.asListPreOrderItr()).containsExactly(6, 4, 3, 5, 8, 7, 9);
-//        Assertions.assertThat(bst.asListPreOrderViaIterator()).containsExactly(6, 4, 3, 5, 8, 7, 9);
-//
-//        bst.delete(3);
-//        Assertions.assertThat(bst.asListPreOrder()).containsExactly(6, 4, 5, 8, 7, 9);
-//        Assertions.assertThat(bst.asListPreOrderItr()).containsExactly(6, 4, 5, 8, 7, 9);
-//        Assertions.assertThat(bst.asListPreOrderViaIterator()).containsExactly(6, 4, 5, 8, 7, 9);
-//
-//        bst.delete(6);
-//        Assertions.assertThat(bst.asListPreOrder()).containsExactly(7, 4, 5, 8, 9);
-//        Assertions.assertThat(bst.asListPreOrderItr()).containsExactly(7, 4, 5, 8, 9);
-//        Assertions.assertThat(bst.asListPreOrderViaIterator()).containsExactly(7, 4, 5, 8, 9);
+        Assertions.assertThat(bst.asListPreOrder()).containsExactly(6, 4, 3, 5, 8, 7, 9);
+        Assertions.assertThat(bst.asListPreOrderItr()).containsExactly(6, 4, 3, 5, 8, 7, 9);
+        Assertions.assertThat(bst.asListPreOrderViaIterator()).containsExactly(6, 4, 3, 5, 8, 7, 9);
+
+        bst.delete(3);
+        Assertions.assertThat(bst.asListPreOrder()).containsExactly(6, 4, 5, 8, 7, 9);
+        Assertions.assertThat(bst.asListPreOrderItr()).containsExactly(6, 4, 5, 8, 7, 9);
+        Assertions.assertThat(bst.asListPreOrderViaIterator()).containsExactly(6, 4, 5, 8, 7, 9);
+
+        bst.delete(6);
+        Assertions.assertThat(bst.asListPreOrder()).containsExactly(7, 4, 5, 8, 9);
+        Assertions.assertThat(bst.asListPreOrderItr()).containsExactly(7, 4, 5, 8, 9);
+        Assertions.assertThat(bst.asListPreOrderViaIterator()).containsExactly(7, 4, 5, 8, 9);
     }
 
     @Test
