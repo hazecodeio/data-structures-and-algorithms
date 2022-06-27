@@ -13,7 +13,7 @@ public class BinarySearchTreeTest {
     public BinarySearchTreeTest() {
         bst = new BinarySearchTree<>();
         List<Integer> l1 = List.of(6,4,8,3,5,7,9);
-//        l1.stream().forEach(bst::add);
+        l1.stream().forEach(bst::add);
 
         List<Integer> l2 = List.of(1,0,3,2,5,4,7,6);
 //        l2.stream().forEach(bst::add);
