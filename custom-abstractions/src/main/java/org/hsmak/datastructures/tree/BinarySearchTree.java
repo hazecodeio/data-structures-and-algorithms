@@ -452,14 +452,15 @@ class BinarySearchTree<E extends Comparable<E>> {
         stack.push(root);
 
         while (!stack.isEmpty()) {
-            Node current = stack.peek();
-            boolean currentHasChild = (current.left != null || current.right != null);
-            boolean lastPoppedIsChildOfCurrent = (lastPopped == current.right || lastPopped == current.left);
 
-            if (!currentHasChild || lastPoppedIsChildOfCurrent) { // Only pop when it's a leaf node or lastPopped is one of its children
-                current = stack.pop();
-                c.accept(current.value);
-                lastPopped = current;
+            Node current = stack.peek();
+
+            boolean isCurrentALeafNode = (current.left == null && current.right == null);
+            boolean isLastPoppedAChildOfCurrent = (lastPopped == current.right || lastPopped == current.left);
+
+            if (isCurrentALeafNode || isLastPoppedAChildOfCurrent) { // Only pop when it's a leaf node or lastPopped is one of its children
+                lastPopped = stack.pop();
+                c.accept(lastPopped.value);
             } else {
                 if (current.right != null) {
                     stack.push(current.right);
