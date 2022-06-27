@@ -461,13 +461,14 @@ class BinarySearchTree<E extends Comparable<E>> {
             if (isCurrentALeafNode || isLastPoppedAChildOfCurrent) { // Only pop when it's a leaf node or lastPopped is one of its children
                 lastPopped = stack.pop();
                 c.accept(lastPopped.value);
-            } else {
-                if (current.right != null) {
-                    stack.push(current.right);
-                }
-                if (current.left != null) {
-                    stack.push(current.left);
-                }
+                continue;
+            }
+
+            if (current.right != null) {
+                stack.push(current.right);
+            }
+            if (current.left != null) {
+                stack.push(current.left);
             }
         }
     }
