@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ public class BinarySearchTreeTest {
         bst = new BinarySearchTree<>();
         TEST_DATA.input().stream().forEach(bst::add);
 
-        List<Integer> l2 = List.of(1, 0, 3, 2, 5, 4, 7, 6);
+//        List<Integer> l2 = List.of(1, 0, 3, 2, 5, 4, 7, 6);
 //        l2.stream().forEach(bst::add);
 
         List<Integer> l3 = List.of(7, 0, 3, 2, 1, 6, 5, 4);
@@ -35,179 +34,6 @@ public class BinarySearchTreeTest {
     @Parameterized.Parameters(name = "{0}")
     public static EnumSet<TestData> getEnums() {
         return EnumSet.allOf(TestData.class);
-    }
-
-    interface ITestData<T> {
-        List<T> input();
-
-        List<T> expectedBreadthFirstOrder();
-
-        List<T> expectedBreadthFirstOrderAfterDelete3();
-
-        List<T> expectedBreadthFirstOrderAfterDelete6();
-
-        List<T> expectedPreOrder();
-
-        List<T> expectedInOrder();
-
-        List<T> expectedPostOrder();
-
-        List<T> expectedPreOrderAfterDelete3();
-
-        List<T> expectedInOrderAfterDelete3();
-
-        List<T> expectedPostOrderAfterDelete3();
-
-        List<T> expectedPreOrderAfterDelete6();
-
-        List<T> expectedInOrderAfterDelete6();
-
-        List<T> expectedPostOrderAfterDelete6();
-    }
-
-    @RunWith(Parameterized.class)
-    private enum TestData implements ITestData<Integer> {
-        SAMPLE_DATA_01 {
-            @Override
-            public List<Integer> input() {
-                return List.of(6, 4, 8, 3, 5, 7, 9);
-            }
-
-            @Override
-            public List<Integer> expectedBreadthFirstOrder() {
-                return List.of(6, 4, 8, 3, 5, 7, 9);
-            }
-
-            @Override
-            public List<Integer> expectedBreadthFirstOrderAfterDelete3() {
-                return List.of(6, 4, 8, 5, 7, 9);
-            }
-
-            @Override
-            public List<Integer> expectedBreadthFirstOrderAfterDelete6() {
-                return List.of(7, 4, 8, 5, 9);
-            }
-
-            @Override
-            public List<Integer> expectedPreOrder() {
-                return List.of(6, 4, 3, 5, 8, 7, 9);
-            }
-
-            @Override
-            public List<Integer> expectedInOrder() {
-                return List.of(3, 4, 5, 6, 7, 8, 9);
-            }
-
-            @Override
-            public List<Integer> expectedPostOrder() {
-                return List.of(3, 5, 4, 7, 9, 8, 6);
-            }
-
-            @Override
-            public List<Integer> expectedPreOrderAfterDelete3() {
-                return List.of(6, 4, 5, 8, 7, 9);
-            }
-
-            @Override
-            public List<Integer> expectedInOrderAfterDelete3() {
-                return List.of(4, 5, 6, 7, 8, 9);
-            }
-
-            @Override
-            public List<Integer> expectedPostOrderAfterDelete3() {
-                return List.of(5, 4, 7, 9, 8, 6);
-            }
-
-            @Override
-            public List<Integer> expectedPreOrderAfterDelete6() {
-                return List.of(7, 4, 5, 8, 9);
-            }
-
-            @Override
-            public List<Integer> expectedInOrderAfterDelete6() {
-                return List.of(4, 5, 7, 8, 9);
-            }
-
-            @Override
-            public List<Integer> expectedPostOrderAfterDelete6() {
-                return List.of(5, 4, 9, 8, 7);
-            }
-
-        },
-
-        //ToDo
-        /*SAMPLE_DATA_02 {
-            @Override
-            public List<Integer> input() {
-                return Collections.emptyList();
-            }
-
-            @Override
-            public List<Integer> expectedBreadthFirstOrder() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedBreadthFirstOrderAfterDelete3() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedBreadthFirstOrderAfterDelete6() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedPreOrder() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedInOrder() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedPostOrder() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedPreOrderAfterDelete3() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedInOrderAfterDelete3() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedPostOrderAfterDelete3() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedPreOrderAfterDelete6() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedInOrderAfterDelete6() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> expectedPostOrderAfterDelete6() {
-                return null;
-            }
-        }*/
-        ;
-
-        @Override
-        public String toString() {
-            return Stream.of(name(), input().toString()).collect(Collectors.joining(" -> "));
-        }
     }
 
     @Test
@@ -224,9 +50,9 @@ public class BinarySearchTreeTest {
         Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new));
 
         bst.delete(6);
-        Assertions.assertThat(bst.asListInOrder()).containsExactly(TEST_DATA.expectedInOrderAfterDelete6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListInOrder()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new));
     }
 
     @Test
@@ -244,9 +70,9 @@ public class BinarySearchTreeTest {
         Assertions.assertThat(bst.asListPostOrderViaIterator()).containsExactly(TEST_DATA.expectedPostOrderAfterDelete3().toArray(Integer[]::new));
 
         bst.delete(6);
-        Assertions.assertThat(bst.asListPostOrder()).containsExactly(TEST_DATA.expectedPostOrderAfterDelete6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListPostOrderItr()).containsExactly(TEST_DATA.expectedPostOrderAfterDelete6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListPostOrderViaIterator()).containsExactly(TEST_DATA.expectedPostOrderAfterDelete6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListPostOrder()).containsExactly(TEST_DATA.expectedPostOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListPostOrderItr()).containsExactly(TEST_DATA.expectedPostOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListPostOrderViaIterator()).containsExactly(TEST_DATA.expectedPostOrderAfterDelete3Then6().toArray(Integer[]::new));
     }
 
     @Test
@@ -262,9 +88,9 @@ public class BinarySearchTreeTest {
         Assertions.assertThat(bst.asListPreOrderViaIterator()).containsExactly(TEST_DATA.expectedPreOrderAfterDelete3().toArray(Integer[]::new));
 
         bst.delete(6);
-        Assertions.assertThat(bst.asListPreOrder()).containsExactly(TEST_DATA.expectedPreOrderAfterDelete6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListPreOrderItr()).containsExactly(TEST_DATA.expectedPreOrderAfterDelete6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListPreOrderViaIterator()).containsExactly(TEST_DATA.expectedPreOrderAfterDelete6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListPreOrder()).containsExactly(TEST_DATA.expectedPreOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListPreOrderItr()).containsExactly(TEST_DATA.expectedPreOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListPreOrderViaIterator()).containsExactly(TEST_DATA.expectedPreOrderAfterDelete3Then6().toArray(Integer[]::new));
     }
 
     @Test
@@ -280,9 +106,9 @@ public class BinarySearchTreeTest {
         Assertions.assertThat(bst.asListBreadthFirstByLevelRec()).containsExactly(TEST_DATA.expectedBreadthFirstOrderAfterDelete3().toArray(Integer[]::new));
 
         bst.delete(6);
-        Assertions.assertThat(bst.asListBreadthFirst()).containsExactly(TEST_DATA.expectedBreadthFirstOrderAfterDelete6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListBreadthFirstByLevelIter()).containsExactly(TEST_DATA.expectedBreadthFirstOrderAfterDelete6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListBreadthFirstByLevelRec()).containsExactly(TEST_DATA.expectedBreadthFirstOrderAfterDelete6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListBreadthFirst()).containsExactly(TEST_DATA.expectedBreadthFirstOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListBreadthFirstByLevelIter()).containsExactly(TEST_DATA.expectedBreadthFirstOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListBreadthFirstByLevelRec()).containsExactly(TEST_DATA.expectedBreadthFirstOrderAfterDelete3Then6().toArray(Integer[]::new));
     }
 
     @Test
@@ -347,6 +173,177 @@ public class BinarySearchTreeTest {
 
         System.out.println("rightSubtreesAsList: " + bst.rightSubtreesAsList().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         System.out.println("leftSubtreesAsList: " + bst.leftSubtreesAsList().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
+    }
+
+    @RunWith(Parameterized.class)
+    private enum TestData implements ITestData<Integer> {
+        SAMPLE_DATA_01 {
+            @Override
+            public List<Integer> input() {
+                return List.of(6, 4, 8, 3, 5, 7, 9);
+            }
+
+            @Override
+            public List<Integer> expectedBreadthFirstOrder() {
+                return List.of(6, 4, 8, 3, 5, 7, 9);
+            }
+
+            @Override
+            public List<Integer> expectedBreadthFirstOrderAfterDelete3() {
+                return List.of(6, 4, 8, 5, 7, 9);
+            }
+
+            @Override
+            public List<Integer> expectedBreadthFirstOrderAfterDelete3Then6() {
+                return List.of(7, 4, 8, 5, 9);
+            }
+
+            @Override
+            public List<Integer> expectedPreOrder() {
+                return List.of(6, 4, 3, 5, 8, 7, 9);
+            }
+
+            @Override
+            public List<Integer> expectedInOrder() {
+                return List.of(3, 4, 5, 6, 7, 8, 9);
+            }
+
+            @Override
+            public List<Integer> expectedPostOrder() {
+                return List.of(3, 5, 4, 7, 9, 8, 6);
+            }
+
+            @Override
+            public List<Integer> expectedPreOrderAfterDelete3() {
+                return List.of(6, 4, 5, 8, 7, 9);
+            }
+
+            @Override
+            public List<Integer> expectedInOrderAfterDelete3() {
+                return List.of(4, 5, 6, 7, 8, 9);
+            }
+
+            @Override
+            public List<Integer> expectedPostOrderAfterDelete3() {
+                return List.of(5, 4, 7, 9, 8, 6);
+            }
+
+            @Override
+            public List<Integer> expectedPreOrderAfterDelete3Then6() {
+                return List.of(7, 4, 5, 8, 9);
+            }
+
+            @Override
+            public List<Integer> expectedInOrderAfterDelete3Then6() {
+                return List.of(4, 5, 7, 8, 9);
+            }
+
+            @Override
+            public List<Integer> expectedPostOrderAfterDelete3Then6() {
+                return List.of(5, 4, 9, 8, 7);
+            }
+
+        },
+
+        SAMPLE_DATA_02 {
+            @Override
+            public List<Integer> input() {
+                return List.of(1, 0, 3, 2, 5, 4, 7, 6);
+            }
+
+            @Override
+            public List<Integer> expectedBreadthFirstOrder() {
+                return List.of(1, 0, 3, 2, 5, 4, 7, 6);
+            }
+
+            @Override
+            public List<Integer> expectedBreadthFirstOrderAfterDelete3() {
+                return List.of(1, 0, 4, 2, 5, 7, 6);
+            }
+
+            @Override
+            public List<Integer> expectedBreadthFirstOrderAfterDelete3Then6() {
+                return List.of(1, 0, 4, 2, 5, 7);
+            }
+
+            @Override
+            public List<Integer> expectedPreOrder() {
+                return List.of(1, 0, 3, 2, 5, 4, 7, 6);
+            }
+
+            @Override
+            public List<Integer> expectedInOrder() {
+                return List.of(0, 1, 2, 3, 4, 5, 6, 7);
+            }
+
+            @Override
+            public List<Integer> expectedPostOrder() {
+                return List.of(0, 2, 4, 6, 7, 5, 3, 1);
+            }
+
+            @Override
+            public List<Integer> expectedPreOrderAfterDelete3() {
+                return List.of(1, 0, 4, 2, 5, 7, 6);
+            }
+
+            @Override
+            public List<Integer> expectedInOrderAfterDelete3() {
+                return List.of(0, 1, 2, 4, 5, 6, 7);
+            }
+
+            @Override
+            public List<Integer> expectedPostOrderAfterDelete3() {
+                return List.of(0, 2, 6, 7, 5, 4, 1);
+            }
+
+            @Override
+            public List<Integer> expectedPreOrderAfterDelete3Then6() {
+                return List.of(1, 0, 4, 2, 5, 7);
+            }
+
+            @Override
+            public List<Integer> expectedInOrderAfterDelete3Then6() {
+                return List.of(0, 1, 2, 4, 5, 7);
+            }
+
+            @Override
+            public List<Integer> expectedPostOrderAfterDelete3Then6() {
+                return List.of(0, 2, 7, 5, 4, 1);
+            }
+        };
+
+        @Override
+        public String toString() {
+            return Stream.of(name(), input().toString()).collect(Collectors.joining(" -> "));
+        }
+    }
+
+    interface ITestData<T> {
+        List<T> input();
+
+        List<T> expectedBreadthFirstOrder();
+
+        List<T> expectedBreadthFirstOrderAfterDelete3();
+
+        List<T> expectedBreadthFirstOrderAfterDelete3Then6();
+
+        List<T> expectedPreOrder();
+
+        List<T> expectedPreOrderAfterDelete3();
+
+        List<T> expectedPreOrderAfterDelete3Then6();
+
+        List<T> expectedInOrder();
+
+        List<T> expectedInOrderAfterDelete3();
+
+        List<T> expectedInOrderAfterDelete3Then6();
+
+        List<T> expectedPostOrder();
+
+        List<T> expectedPostOrderAfterDelete3();
+
+        List<T> expectedPostOrderAfterDelete3Then6();
     }
 
 }
