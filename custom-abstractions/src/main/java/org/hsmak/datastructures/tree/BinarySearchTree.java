@@ -416,18 +416,14 @@ class BinarySearchTree<E extends Comparable<E>> {
     public void traverseInOrderIterative(Consumer<E> c) {
         Stack<Node> stack = new Stack<>();
         Node current = root;
-        stack.push(root);
-        while (!stack.isEmpty()) {
-            while (current.left != null) {
-                current = current.left;
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
                 stack.push(current);
+                current = current.left;
             }
             current = stack.pop();
             c.accept(current.value);
-            if (current.right != null) {
-                current = current.right;
-                stack.push(current);
-            }
+            current = current.right;
         }
     }
 
@@ -529,6 +525,25 @@ class BinarySearchTree<E extends Comparable<E>> {
             l.add(it.next());
         return l;
     }
+
+    List<E> rightSubtreesAsList() {
+        List<E> l = new ArrayList<>();
+
+        for (Node head = root; head != null; head = head.right)
+            l.add(head.value);
+
+        return l;
+    }
+
+    List<E> leftSubtreesAsList() {
+        List<E> l = new ArrayList<>();
+
+        for (Node head = root; head != null; head = head.left)
+            l.add(head.value);
+
+        return l;
+    }
+
     class InOrderIterator implements Iterator<E> {
         Stack<Node> stack;
         Node current;
@@ -536,28 +551,23 @@ class BinarySearchTree<E extends Comparable<E>> {
         public InOrderIterator(Node current) {
             this.current = current;
             this.stack = new Stack<>();
-            stack.push(current);
         }
 
         @Override
         public boolean hasNext() {
-            return !stack.isEmpty();
+            return current != null || !stack.isEmpty();
         }
 
         @Override
         public E next() {
-            while (current.left != null) {
-                current = current.left;
+            while (current != null) {
                 stack.push(current);
+                current = current.left;
             }
 
             current = stack.pop();
             E val = current.value;
-
-            if (current.right != null) {
-                current = current.right;
-                stack.push(current);
-            }
+            current = current.right;
             return val;
         }
     }
@@ -612,7 +622,7 @@ class BinarySearchTree<E extends Comparable<E>> {
         @Override
         public E next() {
 
-            while(true) {
+            while (true) {
                 Node current = stack.peek();
 
                 boolean isCurrentALeafNode = (current.left == null && current.right == null);
@@ -632,24 +642,6 @@ class BinarySearchTree<E extends Comparable<E>> {
                 }
             }
         }
-    }
-
-    List<E> rightSubtreesAsList() {
-        List<E> l = new ArrayList<>();
-
-        for (Node head = root; head != null; head = head.right)
-            l.add(head.value);
-
-        return l;
-    }
-
-    List<E> leftSubtreesAsList() {
-        List<E> l = new ArrayList<>();
-
-        for (Node head = root; head != null; head = head.left)
-            l.add(head.value);
-
-        return l;
     }
 
     class Node {

@@ -26,7 +26,7 @@ public class BinarySearchTreeTest {
 //        List<Integer> l2 = List.of(1, 0, 3, 2, 5, 4, 7, 6);
 //        l2.stream().forEach(bst::add);
 
-        List<Integer> l3 = List.of(7, 0, 3, 2, 1, 6, 5, 4);
+//        List<Integer> l3 = List.of(7, 0, 3, 2, 1, 6, 5, 4);
 //        l3.stream().forEach(bst::add);
 
     }
@@ -40,19 +40,19 @@ public class BinarySearchTreeTest {
     public void testTraversalInOrder() {
         System.out.println(bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         Assertions.assertThat(bst.asListInOrder()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new)); // ToDo - Fix
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new)); // ToDo - Fix
 
 
         bst.delete(3);
         Assertions.assertThat(bst.asListInOrder()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new)); // ToDo - Fix
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new)); // ToDo - Fix
 
         bst.delete(6);
         Assertions.assertThat(bst.asListInOrder()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new)); // ToDo - Fix
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new)); // ToDo - Fix
     }
 
     @Test
@@ -244,7 +244,6 @@ public class BinarySearchTreeTest {
             }
 
         },
-
         SAMPLE_DATA_02 {
             @Override
             public List<Integer> input() {
@@ -310,6 +309,72 @@ public class BinarySearchTreeTest {
             public List<Integer> expectedPostOrderAfterDelete3Then6() {
                 return List.of(0, 2, 7, 5, 4, 1);
             }
+        },
+        SAMPLE_DATE_03 {
+            @Override
+            public List<Integer> input() {
+                return List.of(7, 0, 3, 2, 1, 6, 5, 4);
+            }
+
+            @Override
+            public List<Integer> expectedBreadthFirstOrder() {
+                return List.of(7, 0, 3, 2, 6, 1, 5, 4);
+            }
+
+            @Override
+            public List<Integer> expectedBreadthFirstOrderAfterDelete3() {
+                return List.of(7, 0, 4, 2, 6, 1, 5);
+            }
+
+            @Override
+            public List<Integer> expectedBreadthFirstOrderAfterDelete3Then6() {
+                return List.of(7, 0, 4, 2, 5, 1);
+            }
+
+            @Override
+            public List<Integer> expectedPreOrder() {
+                return List.of(7, 0, 3, 2, 1, 6, 5, 4);
+            }
+
+            @Override
+            public List<Integer> expectedPreOrderAfterDelete3() {
+                return List.of(7, 0, 4, 2, 1, 6, 5);
+            }
+
+            @Override
+            public List<Integer> expectedPreOrderAfterDelete3Then6() {
+                return List.of(7, 0, 4, 2, 1, 5);
+            }
+
+            @Override
+            public List<Integer> expectedInOrder() {
+                return List.of(0, 1, 2, 3, 4, 5, 6, 7);
+            }
+
+            @Override
+            public List<Integer> expectedInOrderAfterDelete3() {
+                return List.of(0, 1, 2, 4, 5, 6, 7);
+            }
+
+            @Override
+            public List<Integer> expectedInOrderAfterDelete3Then6() {
+                return List.of(0, 1, 2, 4, 5, 7);
+            }
+
+            @Override
+            public List<Integer> expectedPostOrder() {
+                return List.of(1, 2, 4, 5, 6, 3, 0, 7);
+            }
+
+            @Override
+            public List<Integer> expectedPostOrderAfterDelete3() {
+                return List.of(1, 2, 5, 6, 4, 0, 7);
+            }
+
+            @Override
+            public List<Integer> expectedPostOrderAfterDelete3Then6() {
+                return List.of(1, 2, 5, 4, 0, 7);
+            }
         };
 
         @Override
@@ -345,5 +410,4 @@ public class BinarySearchTreeTest {
 
         List<T> expectedPostOrderAfterDelete3Then6();
     }
-
 }
