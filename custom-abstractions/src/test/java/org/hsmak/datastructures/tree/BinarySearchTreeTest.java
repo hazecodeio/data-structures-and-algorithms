@@ -40,19 +40,19 @@ public class BinarySearchTreeTest {
     public void testTraversalInOrder() {
         System.out.println(bst.asListInOrder().stream().map(String::valueOf).collect(Collectors.joining(",", "[", "]")));
         Assertions.assertThat(bst.asListInOrder()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new)); // ToDo - Fix
-        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new)); // ToDo - Fix
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrder().toArray(Integer[]::new));
 
 
         bst.delete(3);
         Assertions.assertThat(bst.asListInOrder()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new)); // ToDo - Fix
-        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new)); // ToDo - Fix
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3().toArray(Integer[]::new));
 
         bst.delete(6);
         Assertions.assertThat(bst.asListInOrder()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new));
-        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new)); // ToDo - Fix
-        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new)); // ToDo - Fix
+        Assertions.assertThat(bst.asListInOrderItr()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new));
+        Assertions.assertThat(bst.asListInOrderViaIterator()).containsExactly(TEST_DATA.expectedInOrderAfterDelete3Then6().toArray(Integer[]::new));
     }
 
     @Test
