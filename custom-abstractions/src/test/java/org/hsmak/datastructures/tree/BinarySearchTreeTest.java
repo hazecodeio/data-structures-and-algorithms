@@ -22,13 +22,6 @@ public class BinarySearchTreeTest {
         this.TEST_DATA = TEST_DATA;
         bst = new BinarySearchTree<>();
         TEST_DATA.input().stream().forEach(bst::add);
-
-//        List<Integer> l2 = List.of(1, 0, 3, 2, 5, 4, 7, 6);
-//        l2.stream().forEach(bst::add);
-
-//        List<Integer> l3 = List.of(7, 0, 3, 2, 1, 6, 5, 4);
-//        l3.stream().forEach(bst::add);
-
     }
 
     @Parameterized.Parameters(name = "{0}")
